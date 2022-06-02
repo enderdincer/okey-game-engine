@@ -7,24 +7,9 @@ enum class TileColor {
 
 interface Tile
 
-data class NumericTile(
-        val color: TileColor,
+data class NumberTile(
         val number: Int,
+        val color: TileColor,
 ) : Tile
 
 class JokerTile: Tile
-
-// todo
-data class Hand(
-        val numericTiles: List<NumericTile>,
-        val jokerTiles: List<JokerTile>,
-)
-
-
-fun main() {
-    val tiles = listOf<Tile>(NumericTile(TileColor.BLACK, 12), JokerTile())
-
-    val tile = tiles[0]
-
-    (tile as NumericTile).color
-}
