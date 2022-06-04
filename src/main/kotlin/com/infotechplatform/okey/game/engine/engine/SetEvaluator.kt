@@ -3,8 +3,7 @@ package com.infotechplatform.okey.game.engine.engine
 import com.infotechplatform.okey.game.engine.model.NumberTile
 import com.infotechplatform.okey.game.engine.model.TileSet
 
-class SetValidator {
-
+class SetEvaluator {
 
     // globalConfig = tile
 

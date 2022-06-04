@@ -5,6 +5,16 @@ fun main() {
 
 }
 
+// 14 +1
+// 4-4-3-3 +1
+// 5-3-3-3 +1
+// 5-5-4 +1
+
+// 4-4-4
+
+
+// PART 0
+// GAME SETUP
 
 // PART 1
 // DETERMINE IF A HAND IS WINNING
@@ -14,3 +24,19 @@ fun main() {
 
 // PART 2
 // PLAY TO WIN
+
+// ===== PLAY STEPS ===== //
+
+// DECIDE ON WHAT TO THROW
+// THROW
+// HAVE 14 TILES
+
+// DECIDE WETHER DRAW FROM TILE STACK OR FREE TILES
+// HAVE 15 TILES
+
+// PROCESS
+// IS WIN?
+
+// DECIDE ON WHAT TO THROW
+// THROW
+// HAVE 14 TILES

@@ -25,5 +25,6 @@ class GameEngineTest {
     @Test
     fun test() {
         gameEngine.initGame()
+        gameEngine.play()
     }
 }

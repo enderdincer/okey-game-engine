@@ -11,165 +11,165 @@ import org.mockito.InjectMocks
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class SetValidatorTest {
+class SetEvaluatorTest {
 
     @InjectMocks
-    private lateinit var setValidator: SetValidator
+    private lateinit var setEvaluator: SetEvaluator
 
     @Test
     fun `A sequence of 3 numbers should be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(1, TileColor.GREEN),
                 NumberTile(2, TileColor.GREEN),
                 NumberTile(3, TileColor.GREEN),
-        ), listOf(JokerTile()))
+        ), mutableListOf(JokerTile()))
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = true
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Not complete sequence should not be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(3, TileColor.GREEN),
                 NumberTile(2, TileColor.GREEN),
                 NumberTile(2, TileColor.RED),
-        ), listOf(JokerTile()))
+        ), mutableListOf(JokerTile()))
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = false
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Repeating numbers with same color should not be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(2, TileColor.BLACK),
                 NumberTile(2, TileColor.BLACK),
                 NumberTile(2, TileColor.RED),
-        ), listOf())
+        ), mutableListOf())
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = false
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 3 same numbers of unique colors should be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(7, TileColor.GREEN),
                 NumberTile(7, TileColor.BLACK),
                 NumberTile(7, TileColor.RED),
-        ), listOf())
+        ), mutableListOf())
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = true
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 4 same numbers of unique colors should be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(3, TileColor.GREEN),
                 NumberTile(3, TileColor.BLACK),
                 NumberTile(3, TileColor.RED),
                 NumberTile(3, TileColor.YELLOW),
-        ), listOf())
+        ), mutableListOf())
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = true
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 2 same numbers of unique colors should not be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(2, TileColor.GREEN),
                 NumberTile(2, TileColor.BLACK),
-        ), listOf())
+        ), mutableListOf())
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = false
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 1 same numbers of unique colors should not be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(2, TileColor.GREEN),
-        ), listOf())
+        ), mutableListOf())
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = false
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 0 same numbers of unique colors should not be a valid set`(){
-        val givenTileSet = TileSet(listOf(), listOf())
+        val givenTileSet = TileSet(mutableListOf(), mutableListOf())
         val givenCurrentOkey = NumberTile(5, TileColor.GREEN)
         val expectedResult = false
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 2 same numbers of unique colors with one joker tile matches the set should be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(2, TileColor.GREEN),
                 NumberTile(2, TileColor.BLACK),
-        ), listOf(JokerTile()))
+        ), mutableListOf(JokerTile()))
         val givenCurrentOkey = NumberTile(2, TileColor.YELLOW)
         val expectedResult = true
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 3 same numbers of unique colors with one joker tile matches the set should be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(2, TileColor.GREEN),
                 NumberTile(2, TileColor.BLACK),
                 NumberTile(2, TileColor.RED),
-        ), listOf(JokerTile()))
+        ), mutableListOf(JokerTile()))
         val givenCurrentOkey = NumberTile(2, TileColor.YELLOW)
         val expectedResult = true
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }
 
     @Test
     fun `Group of 3 same numbers of unique colors with one joker tile that is a duplicate should not be a valid set`(){
-        val givenTileSet = TileSet(listOf(
+        val givenTileSet = TileSet(mutableListOf(
                 NumberTile(2, TileColor.GREEN),
                 NumberTile(2, TileColor.BLACK),
                 NumberTile(2, TileColor.YELLOW),
-        ), listOf(JokerTile()))
+        ), mutableListOf(JokerTile()))
         val givenCurrentOkey = NumberTile(2, TileColor.YELLOW)
         val expectedResult = false
 
-        val isValid = setValidator.isValid(givenTileSet, givenCurrentOkey)
+        val isValid = setEvaluator.isValid(givenTileSet, givenCurrentOkey)
 
         assertThat(isValid).isEqualTo(expectedResult)
     }

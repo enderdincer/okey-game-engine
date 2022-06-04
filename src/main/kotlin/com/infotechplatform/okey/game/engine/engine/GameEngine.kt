@@ -1,5 +1,6 @@
 package com.infotechplatform.okey.game.engine.engine
 
+import com.infotechplatform.okey.game.engine.engine.strategy.DummyGameStrategy
 import com.infotechplatform.okey.game.engine.model.*
 import java.util.*
 
@@ -10,7 +11,7 @@ class GameEngine(
     private val players: MutableList<Player> = mutableListOf()
     private val freeTiles: MutableList<Tile> = mutableListOf()
     private var okeyTile: Tile? = null
-    private var currentPlayer: Player? = null
+    private var winner: Player? = null
 
     fun initGame() {
         initTiles()
@@ -18,8 +19,27 @@ class GameEngine(
         print("")
     }
 
-    fun play(){
-        // TODO
+    fun play() {
+        var roundNumber = 0
+        while (true) {
+            players.forEach { playTurn(it, roundNumber) }
+            roundNumber++
+            if (roundNumber > 15) {
+                break
+            }
+        }
+    }
+
+    private fun playTurn(player: Player, roundNumber: Int) {
+        if (roundNumber == 0 && player.playerId == 0) {
+            player.gameStrategy!!.throwTile()
+            return
+        } else {
+            player.gameStrategy!!.drawTile(freeTiles)
+            player.gameStrategy!!.throwTile()
+            return
+        }
+
     }
 
     private fun pickOkeyTile() {
@@ -50,7 +70,9 @@ class GameEngine(
 
     private fun initPlayers() {
         (0 until gameConfig.numberOfPlayers).forEach {
-            players.add(Player(playerId = it, rack = Rack(mutableListOf(), mutableListOf())))
+            val player = Player(playerId = it, rack = Rack(mutableListOf(), mutableListOf()))
+            player.gameStrategy = DummyGameStrategy(tileHandler, player)
+            players.add(player)
         }
 
         (0 until gameConfig.numberOfPlayers).forEach {
