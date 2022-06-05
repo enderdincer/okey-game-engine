@@ -19,4 +19,12 @@ data class NumberTile(
         val color: TileColor,
 ) : Tile
 
-class JokerTile : Tile
+class JokerTile : Tile{
+    override fun equals(other: Any?): Boolean {
+        return other is JokerTile
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
+}

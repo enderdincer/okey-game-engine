@@ -1,6 +1,7 @@
 package com.infotechplatform.okey.game.engine.engine
 
 import com.infotechplatform.okey.game.engine.engine.strategy.DummyGameStrategy
+import com.infotechplatform.okey.game.engine.engine.strategy.SimpleSequenceOnlyGameStrategy
 import com.infotechplatform.okey.game.engine.model.*
 import java.util.*
 
@@ -10,41 +11,58 @@ class GameEngine(
 ) {
     private val players: MutableList<Player> = mutableListOf()
     private val freeTiles: MutableList<Tile> = mutableListOf()
-    private var okeyTile: Tile? = null
-    private var winner: Player? = null
+    private var okeyTile: NumberTile? = null
+    private var isGameEnded: Boolean = false
 
     fun initGame() {
         initTiles()
         initPlayers()
-        print("")
     }
 
     fun play() {
         var roundNumber = 0
-        while (true) {
-            players.forEach { playTurn(it, roundNumber) }
-            roundNumber++
-            if (roundNumber > 15) {
-                break
+        while (!isGameEnded) {
+
+            for (player in players) {
+                if (isGameEnded) {
+                    break
+                }
+                playTurn(player, roundNumber)
             }
+
+            roundNumber++
         }
     }
 
     private fun playTurn(player: Player, roundNumber: Int) {
         if (roundNumber == 0 && player.playerId == 0) {
-            player.gameStrategy!!.throwTile()
+
+            if (player.gameStrategy!!.declareWin()) {
+                endGame(player)
+            }
+
+            player.gameStrategy!!.discardTile()
             return
         } else {
             player.gameStrategy!!.drawTile(freeTiles)
-            player.gameStrategy!!.throwTile()
+
+            if (player.gameStrategy!!.declareWin()) {
+                endGame(player)
+            }
+
+            player.gameStrategy!!.discardTile()
             return
         }
+    }
 
+    private fun endGame(winner: Player) {
+        println(winner.rack)
+        this.isGameEnded = true
     }
 
     private fun pickOkeyTile() {
         val randomTileIndex = Random().nextInt(104)
-        okeyTile = freeTiles[randomTileIndex]
+        okeyTile = freeTiles[randomTileIndex] as NumberTile
     }
 
     private fun initTiles() {
@@ -65,13 +83,17 @@ class GameEngine(
     }
 
     private fun shuffleTiles() {
-        // TODO
+        freeTiles.shuffle()
     }
 
     private fun initPlayers() {
         (0 until gameConfig.numberOfPlayers).forEach {
             val player = Player(playerId = it, rack = Rack(mutableListOf(), mutableListOf()))
-            player.gameStrategy = DummyGameStrategy(tileHandler, player)
+            if (player.playerId == 0) {
+                player.gameStrategy = SimpleSequenceOnlyGameStrategy(tileHandler, RackProcessor(), player, okeyTile!!)
+            } else {
+                player.gameStrategy = DummyGameStrategy(tileHandler, player, currentOkey = okeyTile!!)
+            }
             players.add(player)
         }
 
