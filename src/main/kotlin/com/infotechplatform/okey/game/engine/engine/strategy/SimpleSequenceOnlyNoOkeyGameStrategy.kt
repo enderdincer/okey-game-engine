@@ -7,7 +7,7 @@ import com.infotechplatform.okey.game.engine.model.NumberTile
 import com.infotechplatform.okey.game.engine.model.Player
 import com.infotechplatform.okey.game.engine.model.Tile
 
-class SimpleSequenceOnlyGameStrategy(
+class SimpleSequenceOnlyNoOkeyGameStrategy(
         private val tileHandler: TileHandler,
         private val rackProcessor: RackProcessor,
         override val player: Player,

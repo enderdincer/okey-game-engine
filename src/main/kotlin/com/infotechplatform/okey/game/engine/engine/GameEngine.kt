@@ -1,7 +1,7 @@
 package com.infotechplatform.okey.game.engine.engine
 
 import com.infotechplatform.okey.game.engine.engine.strategy.DummyGameStrategy
-import com.infotechplatform.okey.game.engine.engine.strategy.SimpleSequenceOnlyGameStrategy
+import com.infotechplatform.okey.game.engine.engine.strategy.SimpleSequenceOnlyNoOkeyGameStrategy
 import com.infotechplatform.okey.game.engine.model.*
 import java.util.*
 
@@ -90,7 +90,7 @@ class GameEngine(
         (0 until gameConfig.numberOfPlayers).forEach {
             val player = Player(playerId = it, rack = Rack(mutableListOf(), mutableListOf()))
             if (player.playerId == 0) {
-                player.gameStrategy = SimpleSequenceOnlyGameStrategy(tileHandler, RackProcessor(), player, okeyTile!!)
+                player.gameStrategy = SimpleSequenceOnlyNoOkeyGameStrategy(tileHandler, RackProcessor(), player, okeyTile!!)
             } else {
                 player.gameStrategy = DummyGameStrategy(tileHandler, player, currentOkey = okeyTile!!)
             }
