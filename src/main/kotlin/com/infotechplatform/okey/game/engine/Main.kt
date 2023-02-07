@@ -1,8 +1,17 @@
 package com.infotechplatform.okey.game.engine
 
+import com.infotechplatform.okey.game.engine.engine.GameConfig
+import com.infotechplatform.okey.game.engine.engine.GameEngine
+import com.infotechplatform.okey.game.engine.engine.TileHandler
+
 
 fun main() {
+    val tileHandler = TileHandler()
+    val gameConfig = GameConfig(4, 13, 2)
+    val gameEngine = GameEngine(gameConfig, tileHandler)
 
+    gameEngine.initGame()
+    gameEngine.play()
 }
 
 // 14 +1

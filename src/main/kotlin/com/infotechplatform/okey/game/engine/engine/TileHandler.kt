@@ -10,7 +10,7 @@ class TileHandler {
     fun drawFrom(player: Player, tileCollection: MutableList<Tile>, times: Int = 1) {
         (1..times).forEach { _ ->
             val drawnTile = tileCollection.last()
-            tileCollection.removeLast()
+            tileCollection.removeLast() // why not removelast assign to var
             when (drawnTile) {
                 is NumberTile -> player.rack.numberTiles.add(drawnTile)
                 is JokerTile -> player.rack.jokerTiles.add(drawnTile)

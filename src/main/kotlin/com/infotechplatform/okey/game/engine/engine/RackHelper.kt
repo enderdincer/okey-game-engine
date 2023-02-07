@@ -2,10 +2,9 @@ package com.infotechplatform.okey.game.engine.engine
 
 import com.infotechplatform.okey.game.engine.model.NumberTile
 import com.infotechplatform.okey.game.engine.model.Rack
-import com.infotechplatform.okey.game.engine.model.Tile
 import com.infotechplatform.okey.game.engine.model.TileColor
 
-class RackProcessor {
+class RackHelper {
 
     fun getTileFromCoordinates(pair: Pair<Int, Int>): NumberTile {
         return this.getTileFromCoordinates(pair.first, pair.second)

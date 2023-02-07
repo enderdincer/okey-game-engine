@@ -90,7 +90,7 @@ class GameEngine(
         (0 until gameConfig.numberOfPlayers).forEach {
             val player = Player(playerId = it, rack = Rack(mutableListOf(), mutableListOf()))
             if (player.playerId == 0) {
-                player.gameStrategy = SimpleSequenceOnlyNoOkeyGameStrategy(tileHandler, RackProcessor(), player, okeyTile!!)
+                player.gameStrategy = SimpleSequenceOnlyNoOkeyGameStrategy(tileHandler, RackHelper(), player, okeyTile!!)
             } else {
                 player.gameStrategy = DummyGameStrategy(tileHandler, player, currentOkey = okeyTile!!)
             }
