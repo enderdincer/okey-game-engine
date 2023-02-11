@@ -1,6 +1,6 @@
 package com.infotechplatform.okey.game.experimental.strategy
 
-import com.infotechplatform.okey.game.model.Tile
+import com.infotechplatform.okey.game.engine.model.Tile
 
 interface GameStrategy {
 //

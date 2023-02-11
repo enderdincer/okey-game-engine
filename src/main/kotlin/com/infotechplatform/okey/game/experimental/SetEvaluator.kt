@@ -1,6 +1,6 @@
 package com.infotechplatform.okey.game.experimental
 
-import com.infotechplatform.okey.game.model.Tile
+import com.infotechplatform.okey.game.engine.model.Tile
 
 class SetEvaluator {
 

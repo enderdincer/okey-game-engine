@@ -1,4 +1,4 @@
-package com.infotechplatform.okey.game.model
+package com.infotechplatform.okey.game.engine.model
 
 
 enum class TileColor(

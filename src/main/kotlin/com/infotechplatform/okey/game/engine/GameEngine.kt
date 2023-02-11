@@ -1,18 +1,22 @@
 package com.infotechplatform.okey.game.engine
 
-import com.infotechplatform.okey.game.model.GameEvent
-import com.infotechplatform.okey.game.handler.GameEventHandler
-import com.infotechplatform.okey.game.model.GameEventType
-import com.infotechplatform.okey.game.model.GameState
+import com.infotechplatform.okey.game.engine.model.GameEvent
+import com.infotechplatform.okey.game.engine.handler.GameEventHandler
+import com.infotechplatform.okey.game.engine.model.GameEventType
+import com.infotechplatform.okey.game.engine.model.GameState
 
-object GameEngine {
+class GameEngine(
+        private val gameEventHandler: GameEventHandler
+) {
 
-    fun getNextGameState(prevGameState: GameState, gameEvent: GameEvent): GameState {
-        return when (gameEvent.type) {
-            GameEventType.INIT_GAME -> GameEventHandler.handleInitGame(prevGameState)
-            GameEventType.DECLARE_WIN -> GameEventHandler.handleDeclareWin(prevGameState)
-            else -> throw Exception("Unknown action type")
-        }
-    }
-
+    fun getNextGameState(prevGameState: GameState, gameEvent: GameEvent): GameState =
+            when (gameEvent.type) {
+                GameEventType.CREATE_GAME -> gameEventHandler.handleCreateGame(prevGameState, gameEvent)
+                GameEventType.ADD_PLAYER -> gameEventHandler.handleAddPlayer(prevGameState, gameEvent)
+                GameEventType.START_GAME -> prevGameState
+                GameEventType.DETERMINE_JOKER -> gameEventHandler.handleDetermineJoker(prevGameState, gameEvent)
+                GameEventType.DRAW_TILE -> gameEventHandler.handleDrawTile(prevGameState, gameEvent)
+                GameEventType.DISCARD_TILE -> gameEventHandler.handleDiscardTile(prevGameState, gameEvent)
+                GameEventType.DECLARE_WIN -> gameEventHandler.handleDeclareWin(prevGameState, gameEvent)
+            }
 }

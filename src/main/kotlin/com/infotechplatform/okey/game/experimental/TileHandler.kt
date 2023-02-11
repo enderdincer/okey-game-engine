@@ -1,7 +1,7 @@
 package com.infotechplatform.okey.game.experimental
 
-import com.infotechplatform.okey.game.model.Player
-import com.infotechplatform.okey.game.model.Tile
+import com.infotechplatform.okey.game.engine.model.Player
+import com.infotechplatform.okey.game.engine.model.Tile
 
 object TileHandler {
 
@@ -13,10 +13,10 @@ object TileHandler {
 //        }
 //    }
 //
-//    fun throwPickedTileTo(player: Player, tile: Tile, tileCollection: MutableList<Tile>) {
-//        val tileIndex = player.rack.indexOf(tile)
-//        val pickedTile = player.rack[tileIndex]
-//        player.rack.removeAt(tileIndex)
-//        tileCollection.add(pickedTile)
-//    }
+    fun discardTile(player: Player, tile: Tile, tileCollection: MutableList<Tile>) {
+        val tileIndex = player.rack!!.indexOf(tile)
+        val pickedTile = player.rack[tileIndex]
+        player.rack.removeAt(tileIndex)
+        tileCollection.add(pickedTile)
+    }
 }

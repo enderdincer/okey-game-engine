@@ -1,8 +1,8 @@
 package com.infotechplatform.okey.game.experimental
 
-import com.infotechplatform.okey.game.model.Tile
-import com.infotechplatform.okey.game.model.TileColor
-import com.infotechplatform.okey.game.model.TileType
+import com.infotechplatform.okey.game.engine.model.Tile
+import com.infotechplatform.okey.game.engine.model.TileColor
+import com.infotechplatform.okey.game.engine.model.TileType
 
 class RackHelper {
 //
