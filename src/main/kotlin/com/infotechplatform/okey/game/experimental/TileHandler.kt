@@ -5,18 +5,17 @@ import com.infotechplatform.okey.game.engine.model.Tile
 
 object TileHandler {
 
-//    fun draw(player: Player, tileCollection: MutableList<Tile>, times: Int = 1) {
+//    fun draw(player: Player, sourceTileCollection: MutableList<Tile>, times: Int = 1) {
 //        (1..times).forEach { _ ->
-//            val drawnTile = tileCollection.last()
-//            tileCollection.removeLast() // why not removelast assign to var
-//            player.gameStrategy.rack.add(drawnTile)
+//            val drawnTile = sourceTileCollection.removeLast()
+//            player.rack!!.add(drawnTile)
 //        }
 //    }
 //
-    fun discardTile(player: Player, tile: Tile, tileCollection: MutableList<Tile>) {
-        val tileIndex = player.rack!!.indexOf(tile)
-        val pickedTile = player.rack[tileIndex]
-        player.rack.removeAt(tileIndex)
-        tileCollection.add(pickedTile)
-    }
+//    fun discardTile(player: Player, selectedTile: Tile, targetTileCollection: MutableList<Tile>) {
+//        val tileIndex = player.rack!!.indexOf(selectedTile)
+//        val matchingTileInRack = player.rack[tileIndex]
+//        player.rack.removeAt(tileIndex)
+//        targetTileCollection.add(matchingTileInRack)
+//    }
 }

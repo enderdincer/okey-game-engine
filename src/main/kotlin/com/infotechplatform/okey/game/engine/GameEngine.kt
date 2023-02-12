@@ -13,9 +13,9 @@ class GameEngine(
             when (gameEvent.type) {
                 GameEventType.CREATE_GAME -> gameEventHandler.handleCreateGame(prevGameState, gameEvent)
                 GameEventType.ADD_PLAYER -> gameEventHandler.handleAddPlayer(prevGameState, gameEvent)
-                GameEventType.START_GAME -> prevGameState
-                GameEventType.DETERMINE_JOKER -> gameEventHandler.handleDetermineJoker(prevGameState, gameEvent)
-                GameEventType.DRAW_TILE -> gameEventHandler.handleDrawTile(prevGameState, gameEvent)
+                GameEventType.START_GAME -> gameEventHandler.handleStartGame(prevGameState, gameEvent)
+                GameEventType.DRAW_TILE_FROM_CENTER_TILE_STACK -> gameEventHandler.handleDrawTileFromCenterTileStack(prevGameState, gameEvent)
+                GameEventType.DRAW_TILE_FROM_DISCARD_TILE_STACK -> gameEventHandler.handleDrawTileFromDiscardTileStack(prevGameState, gameEvent)
                 GameEventType.DISCARD_TILE -> gameEventHandler.handleDiscardTile(prevGameState, gameEvent)
                 GameEventType.DECLARE_WIN -> gameEventHandler.handleDeclareWin(prevGameState, gameEvent)
             }

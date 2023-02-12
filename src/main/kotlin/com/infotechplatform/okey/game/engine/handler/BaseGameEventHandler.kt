@@ -1,11 +1,9 @@
 package com.infotechplatform.okey.game.engine.handler
 
-import com.infotechplatform.okey.game.engine.Utils
 import com.infotechplatform.okey.game.engine.exception.InvalidGameConfigException
 import com.infotechplatform.okey.game.engine.model.*
 import com.infotechplatform.okey.game.experimental.TileHandler
-import java.lang.RuntimeException
-import java.util.Random
+import java.util.*
 
 abstract class BaseGameEventHandler : GameEventHandler {
 
@@ -32,21 +30,7 @@ abstract class BaseGameEventHandler : GameEventHandler {
 
         centerTileStack.shuffle()
 
-
-        return prevGameState.copy(centerTileStack = centerTileStack)
-    }
-
-    override fun handleDetermineJoker(prevGameState: GameState, gameEvent: GameEvent): GameState {
-        val gameConfig = prevGameState.gameConfig
-                ?: throw InvalidGameConfigException("Game configuration is null. First initiate the game with INIT_GAME event.")
-
-        val centerTileStack = prevGameState.centerTileStack
-                ?: throw RuntimeException("Center tile stack is null. First initiate the game with INIT_GAME event.")
-
-        val randomTileIndex = Random().nextInt(gameConfig.getTotalNumberOfTiles())
-        val joker = centerTileStack[randomTileIndex]
-
-        return prevGameState.copy(joker = joker)
+        return prevGameState.copy(centerTileStack = centerTileStack, gameConfig = gameConfig)
     }
 
     override fun handleAddPlayer(prevGameState: GameState, gameEvent: GameEvent): GameState {
@@ -54,23 +38,114 @@ abstract class BaseGameEventHandler : GameEventHandler {
             return prevGameState.copy(players = gameEvent.players)
         }
 
-            val updatedPlayers = prevGameState.players.toMutableList()
-        updatedPlayers.addAll(gameEvent.players)
+        // TODO VALIDATION - CANT ADD MORE THAN MAX PLAYERS
+        val updatedPlayers = prevGameState.players.toMutableList()
+        updatedPlayers.addAll(gameEvent.players!!)
 
         return prevGameState.copy(players = updatedPlayers)
     }
 
     override fun handleDeclareWin(prevGameState: GameState, gameEvent: GameEvent): GameState {
+        // TODO IMPL
         return prevGameState
     }
 
     override fun handleDiscardTile(prevGameState: GameState, gameEvent: GameEvent): GameState {
+        val updatedPlayer = gameEvent.players?.get(0) ?: throw RuntimeException("No player found.")
 
-        TileHandler.discardTile()
-        return prevGameState
+        updatedPlayer.discardTile(gameEvent.tile!!)
+
+        return prevGameState.copy(
+                players = getUpdatedPlayers(prevGameState.players!!, updatedPlayer)
+        )
     }
 
-    override fun handleDrawTile(prevGameState: GameState, gameEvent: GameEvent): GameState {
-        return prevGameState
+    override fun handleDrawTileFromCenterTileStack(prevGameState: GameState, gameEvent: GameEvent): GameState {
+        val playerId = gameEvent.players?.get(0)?.playerId ?: throw RuntimeException("No player found.")
+        val drawingPlayer = prevGameState.players!!.find { it.playerId == playerId } ?: throw RuntimeException("")
+        val centerTileStack = prevGameState.centerTileStack?.toMutableList() ?: throw RuntimeException("")
+        drawingPlayer.draw(sourceTileCollection = centerTileStack)
+        return prevGameState.copy(
+                players = getUpdatedPlayers(prevGameState.players, drawingPlayer),
+                centerTileStack = centerTileStack
+        )
+    }
+
+    override fun handleDrawTileFromDiscardTileStack(prevGameState: GameState, gameEvent: GameEvent): GameState {
+        val gameConfig = prevGameState.gameConfig ?: throw RuntimeException("")
+        val playerId = gameEvent.players?.get(0)?.playerId ?: throw RuntimeException("No player found.")
+        val drawingPlayer = prevGameState.players!!.find { it.playerId == playerId } ?: throw RuntimeException("")
+        val leftPlayer = findLeftPlayer(prevGameState.players, drawingPlayer.index!!, gameConfig.numberOfPlayers)
+                ?: throw RuntimeException("")
+        val discardTileStack = leftPlayer.discardTileStack ?: throw RuntimeException("")
+
+        drawingPlayer.draw(sourceTileCollection = discardTileStack)
+
+        val updatedPlayers = prevGameState.players.map {
+            when (it.playerId) {
+                drawingPlayer.playerId -> drawingPlayer
+                leftPlayer.playerId -> leftPlayer
+                else -> it
+
+            }
+        }
+
+        return prevGameState.copy(
+                players = updatedPlayers,
+        )
+    }
+
+    override fun handleStartGame(prevGameState: GameState, gameEvent: GameEvent): GameState {
+        // validate start game with game config num of players
+
+        // validate game config
+
+        val gameConfig = prevGameState.gameConfig!!
+        val centerTileStack = prevGameState.centerTileStack!!.toMutableList()
+
+        val joker = determineJoker(gameConfig, centerTileStack)
+
+        val updatedPlayers = (0 until prevGameState.players!!.size).map { index ->
+            val player = prevGameState.players[index]
+
+            player.leftPlayer = prevGameState.players[getLeftPlayerIndex(index, gameConfig.numberOfPlayers)]
+            player.rightPlayer = prevGameState.players[getRightPlayerIndex(index, gameConfig.numberOfPlayers)]
+            player.discardTileStack = mutableListOf()
+            player.rack = mutableListOf()
+
+            player.draw(
+                    centerTileStack,
+                    times = if (index == 0) gameConfig.numberOfTilesInRack + 1 else gameConfig.numberOfTilesInRack
+            )
+
+            player
+        }
+
+        return prevGameState.copy(players = updatedPlayers, joker = joker)
+    }
+
+    private fun findLeftPlayer(players: List<Player>, playerIndex: Int, numberOfPlayers: Int): Player? =
+            players.find { it.index == getLeftPlayerIndex(playerIndex, numberOfPlayers) }
+
+
+    private fun determineJoker(gameConfig: GameConfig, centerTileStack: MutableList<Tile>): Tile {
+        val randomTileIndex = Random().nextInt(gameConfig.getTotalNumberOfTiles())
+        return centerTileStack[randomTileIndex]
+    }
+
+    private fun getUpdatedPlayers(players: List<Player>, updatedPlayer: Player): List<Player> =
+            players.map { if (it.playerId == updatedPlayer.playerId) updatedPlayer else it }
+
+    private fun getRightPlayerIndex(playerIndex: Int, numberOfPlayers: Int): Int {
+        return (playerIndex + 1) % numberOfPlayers
+    }
+
+    private fun getLeftPlayerIndex(playerIndex: Int, numberOfPlayers: Int): Int {
+        val remainder = (playerIndex - 1) % numberOfPlayers
+        return if (remainder < 0) {
+            remainder + numberOfPlayers
+        } else {
+            remainder
+        }
     }
 }
