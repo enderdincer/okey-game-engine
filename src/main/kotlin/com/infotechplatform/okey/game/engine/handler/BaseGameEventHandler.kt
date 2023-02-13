@@ -51,7 +51,9 @@ abstract class BaseGameEventHandler : GameEventHandler {
     }
 
     override fun handleDiscardTile(prevGameState: GameState, gameEvent: GameEvent): GameState {
-        val updatedPlayer = gameEvent.players?.get(0) ?: throw RuntimeException("No player found.")
+        val playerId = gameEvent.players?.get(0)?.playerId ?: throw RuntimeException("No player found.")
+
+        val updatedPlayer = prevGameState.players!!.find { it.playerId == playerId } ?: throw RuntimeException("")
 
         updatedPlayer.discardTile(gameEvent.tile!!)
 
@@ -112,16 +114,15 @@ abstract class BaseGameEventHandler : GameEventHandler {
             player.rightPlayer = prevGameState.players[getRightPlayerIndex(index, gameConfig.numberOfPlayers)]
             player.discardTileStack = mutableListOf()
             player.rack = mutableListOf()
+            player.index = index
 
-            player.draw(
-                    centerTileStack,
-                    times = if (index == 0) gameConfig.numberOfTilesInRack + 1 else gameConfig.numberOfTilesInRack
-            )
+            val numberOfTiles = if (index == 0) gameConfig.numberOfTilesInRack + 1 else gameConfig.numberOfTilesInRack
+            player.draw(centerTileStack, times = numberOfTiles)
 
             player
         }
 
-        return prevGameState.copy(players = updatedPlayers, joker = joker)
+        return prevGameState.copy(players = updatedPlayers, joker = joker, centerTileStack = centerTileStack)
     }
 
     private fun findLeftPlayer(players: List<Player>, playerIndex: Int, numberOfPlayers: Int): Player? =

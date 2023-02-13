@@ -29,10 +29,21 @@ class GameEngineTest {
         val startGameEvent = GameEvent(type = GameEventType.START_GAME)
         val startedGameState = gameEngine.getNextGameState(preStartState, startGameEvent)
 
-        Assertions.assertThat(startedGameState.centerTileStack).hasSize(47)
+        Assertions.assertThat(startedGameState.centerTileStack).hasSize(49)
         Assertions.assertThat(startedGameState.players).hasSize(4)
         Assertions.assertThat(startedGameState.players!!.all { it.index != null }).isTrue()
+        Assertions.assertThat(startedGameState.players!![0].rack).hasSize(15)
 
+        val selectedTile = startedGameState.players!![0].rack?.get(0)!!
+        val preDiscardTileState = startedGameState.copy()
+        val discardTileGameEvent = GameEvent(type = GameEventType.DISCARD_TILE, tile = selectedTile, players = listOf(Player(playerId = "Ender")))
+        val afterDiscardTileState = gameEngine.getNextGameState(preDiscardTileState, discardTileGameEvent)
 
+        Assertions.assertThat(afterDiscardTileState.centerTileStack).hasSize(49)
+        Assertions.assertThat(afterDiscardTileState.players!!).hasSize(4)
+        Assertions.assertThat(afterDiscardTileState.players!!.all { it.index != null }).isTrue()
+        Assertions.assertThat(afterDiscardTileState.players!![0].rack).hasSize(14)
+
+        println("======= END OF SIMULATION =======")
     }
 }
