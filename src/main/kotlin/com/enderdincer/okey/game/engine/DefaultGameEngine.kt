@@ -9,6 +9,8 @@ class DefaultGameEngine(
         private val gameEventHandler: GameEventHandler,
 ) : GameEngine {
 
+    override fun getName(): String = "Okey Game Engine 1"
+
     override fun createGame(gameId: String) = GameState(gameId = gameId)
 
     override fun getNextGameState(prevGameState: GameState, gameEvent: GameEvent): GameState =
