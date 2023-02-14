@@ -1,19 +1,18 @@
 package com.enderdincer.okey.game.engine
 
-import com.enderdincer.okey.game.engine.handler.DefaultGameEventHandler
 import com.enderdincer.okey.game.engine.model.*
 import com.infotechplatform.okey.game.engine.utils.TestUtils
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
-class GameEngineTest {
+class DefaultGameEngineTest {
 
-    private val gameEngine = GameEngine(gameEventHandler = DefaultGameEventHandler())
+    private val gameEngine = GameEngines.defaultGameEngine()
 
     @Test
     fun gameEngineSimulation() {
         val preCreateState = GameState(gameId = "new game 123")
-        val createGameEvent = GameEvent(type = GameEventType.CREATE_GAME, gameConfig = GameConfigs.getOkeyGameConfig())
+        val createGameEvent = GameEvent(type = GameEventType.CREATE_GAME, gameConfig = GameConfigs.getDefaultGameConfig())
         val createdState = gameEngine.getNextGameState(preCreateState, createGameEvent)
 
         Assertions.assertThat(createdState.centerTileStack).hasSize(106)

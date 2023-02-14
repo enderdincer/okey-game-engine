@@ -1,10 +1,14 @@
 package com.enderdincer.okey.game.engine.handler
 
+import com.enderdincer.okey.game.engine.evaluator.DefaultRackEvaluator
+import com.enderdincer.okey.game.engine.evaluator.RackEvaluator
 import com.enderdincer.okey.game.engine.exception.InvalidGameConfigException
 import com.enderdincer.okey.game.engine.model.*
 import java.util.*
 
-abstract class BaseGameEventHandler : GameEventHandler {
+abstract class BaseGameEventHandler(
+        protected open val rackEvaluator: RackEvaluator
+) : GameEventHandler {
 
     override fun handleCreateGame(prevGameState: GameState, gameEvent: GameEvent): GameState {
         if (prevGameState.gameId == null) {
