@@ -1,0 +1,66 @@
+[
+  [
+    {
+      "number": 2,
+      "color": "GREEN"
+    },
+    {
+      "number": 3,
+      "color": "GREEN"
+    },
+    {
+      "number": 4,
+      "color": "GREEN"
+    },
+    {
+      "number": 5,
+      "color": "GREEN"
+    }
+  ],
+  [
+    {
+      "number": 1,
+      "color": "BLACK"
+    },
+    {
+      "number": 2,
+      "color": "BLACK"
+    },
+    {
+      "number": 3,
+      "color": "BLACK"
+    }
+  ],
+  [
+    {
+      "number": 10,
+      "color": "BLACK"
+    },
+    {
+      "number": 11,
+      "color": "BLACK"
+    },
+    {
+      "number": 12,
+      "color": "BLACK"
+    }
+  ],
+  [
+    {
+      "number": 2,
+      "color": "YELLOW"
+    },
+    {
+      "number": 3,
+      "color": "YELLOW"
+    },
+    {
+      "number": 4,
+      "color": "YELLOW"
+    },
+    {
+      "number": 5,
+      "color": "YELLOW"
+    }
+  ]
+]

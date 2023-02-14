@@ -1,0 +1,17 @@
+Rack(numberTiles=[
+NumberTile(number=8, color=BLACK),
+ NumberTile(number=7, color=RED),
+  NumberTile(number=4, color=YELLOW),
+   NumberTile(number=6, color=RED),
+    NumberTile(number=8, color=YELLOW),
+     NumberTile(number=3, color=YELLOW),
+      NumberTile(number=5, color=RED),
+       NumberTile(number=7, color=YELLOW),
+        NumberTile(number=6, color=BLACK),
+         NumberTile(number=7, color=BLACK),
+          NumberTile(number=2, color=YELLOW),
+           NumberTile(number=8, color=RED),
+            NumberTile(number=9, color=BLACK),
+             NumberTile(number=9, color=YELLOW),
+              NumberTile(number=3, color=GREEN)
+              ], jokerTiles=[]) // Y
