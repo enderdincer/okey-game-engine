@@ -1,8 +1,7 @@
-package com.infotechplatform.okey.game.engine.handler
+package com.enderdincer.okey.game.engine.handler
 
-import com.infotechplatform.okey.game.engine.exception.InvalidGameConfigException
-import com.infotechplatform.okey.game.engine.model.*
-import com.infotechplatform.okey.game.experimental.TileHandler
+import com.enderdincer.okey.game.engine.exception.InvalidGameConfigException
+import com.enderdincer.okey.game.engine.model.*
 import java.util.*
 
 abstract class BaseGameEventHandler : GameEventHandler {
@@ -109,9 +108,6 @@ abstract class BaseGameEventHandler : GameEventHandler {
 
         val updatedPlayers = (0 until prevGameState.players!!.size).map { index ->
             val player = prevGameState.players[index]
-
-            player.leftPlayer = prevGameState.players[getLeftPlayerIndex(index, gameConfig.numberOfPlayers)]
-            player.rightPlayer = prevGameState.players[getRightPlayerIndex(index, gameConfig.numberOfPlayers)]
             player.discardTileStack = mutableListOf()
             player.rack = mutableListOf()
             player.index = index
@@ -127,6 +123,9 @@ abstract class BaseGameEventHandler : GameEventHandler {
 
     private fun findLeftPlayer(players: List<Player>, playerIndex: Int, numberOfPlayers: Int): Player? =
             players.find { it.index == getLeftPlayerIndex(playerIndex, numberOfPlayers) }
+
+    private fun findRightPlayer(players: List<Player>, playerIndex: Int, numberOfPlayers: Int): Player? =
+            players.find { it.index == getRightPlayerIndex(playerIndex, numberOfPlayers) }
 
 
     private fun determineJoker(gameConfig: GameConfig, centerTileStack: MutableList<Tile>): Tile {

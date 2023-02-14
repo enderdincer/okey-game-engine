@@ -1,3 +1,3 @@
-package com.infotechplatform.okey.game.engine.handler
+package com.enderdincer.okey.game.engine.handler
 
 class DefaultGameEventHandler : BaseGameEventHandler()

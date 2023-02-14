@@ -1,6 +1,4 @@
-package com.infotechplatform.okey.game.engine.model
-
-import com.infotechplatform.okey.game.engine.model.TileColor
+package com.enderdincer.okey.game.engine.model
 
 data class GameConfig(
         val numberOfPlayers: Int,

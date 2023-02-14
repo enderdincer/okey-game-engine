@@ -1,4 +1,4 @@
-package com.infotechplatform.okey.game.engine.exception
+package com.enderdincer.okey.game.engine.exception
 
 class UnknownGameActionException: RuntimeException() {
 }

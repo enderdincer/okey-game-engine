@@ -1,7 +1,7 @@
-package com.infotechplatform.okey.game.engine.handler
+package com.enderdincer.okey.game.engine.handler
 
-import com.infotechplatform.okey.game.engine.model.GameEvent
-import com.infotechplatform.okey.game.engine.model.GameState
+import com.enderdincer.okey.game.engine.model.GameEvent
+import com.enderdincer.okey.game.engine.model.GameState
 
 interface GameEventHandler {
 

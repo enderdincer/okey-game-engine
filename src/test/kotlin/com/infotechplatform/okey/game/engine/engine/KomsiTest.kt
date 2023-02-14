@@ -4,10 +4,10 @@ package com.infotechplatform.okey.game.engine.engine
 //import com.infotechplatform.okey.game.engine.model.TileColor
 //import org.assertj.core.api.Assertions.assertThat
 //import org.junit.jupiter.api.Test
-import com.infotechplatform.okey.game.engine.handler.DefaultGameEventHandler
-import com.infotechplatform.okey.game.engine.model.GameConfigs
-import com.infotechplatform.okey.game.engine.model.GameEvent
-import com.infotechplatform.okey.game.engine.model.GameState
+import com.enderdincer.okey.game.engine.handler.DefaultGameEventHandler
+import com.enderdincer.okey.game.engine.model.GameConfigs
+import com.enderdincer.okey.game.engine.model.GameEvent
+import com.enderdincer.okey.game.engine.model.GameState
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension

@@ -1,9 +1,9 @@
-package com.infotechplatform.okey.game.engine
+package com.enderdincer.okey.game.engine
 
-import com.infotechplatform.okey.game.engine.model.GameEvent
-import com.infotechplatform.okey.game.engine.handler.GameEventHandler
-import com.infotechplatform.okey.game.engine.model.GameEventType
-import com.infotechplatform.okey.game.engine.model.GameState
+import com.enderdincer.okey.game.engine.model.GameEvent
+import com.enderdincer.okey.game.engine.handler.GameEventHandler
+import com.enderdincer.okey.game.engine.model.GameEventType
+import com.enderdincer.okey.game.engine.model.GameState
 
 class GameEngine(
         private val gameEventHandler: GameEventHandler
