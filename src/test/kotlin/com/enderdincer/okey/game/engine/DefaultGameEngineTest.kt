@@ -1,7 +1,7 @@
 package com.enderdincer.okey.game.engine
 
 import com.enderdincer.okey.game.engine.model.*
-import com.infotechplatform.okey.game.engine.utils.TestUtils
+import com.enderdincer.okey.game.engine.utils.TestUtils
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 

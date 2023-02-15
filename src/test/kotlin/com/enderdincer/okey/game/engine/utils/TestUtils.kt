@@ -1,4 +1,4 @@
-package com.infotechplatform.okey.game.engine.utils
+package com.enderdincer.okey.game.engine.utils
 
 import com.enderdincer.okey.game.engine.model.Player
 

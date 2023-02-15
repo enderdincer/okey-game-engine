@@ -1,6 +1,6 @@
 package com.enderdincer.okey.game.engine
 
-import com.enderdincer.okey.game.engine.handler.GameEventHandler
+import com.enderdincer.okey.game.engine.event.handler.GameEventHandler
 import com.enderdincer.okey.game.engine.model.GameEvent
 import com.enderdincer.okey.game.engine.model.GameEventType
 import com.enderdincer.okey.game.engine.model.GameState
