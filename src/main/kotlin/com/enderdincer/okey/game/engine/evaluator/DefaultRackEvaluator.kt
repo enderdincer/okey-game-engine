@@ -8,4 +8,8 @@ class DefaultRackEvaluator: RackEvaluator {
     override fun evaluate(rack: List<Tile>): RackEvalResult {
         return RackEvalResult()
     }
+
+    private fun test(){
+
+    }
 }
