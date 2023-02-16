@@ -5,5 +5,5 @@ import com.enderdincer.okey.game.engine.model.Tile
 
 interface RackEvaluator {
 
-    fun evaluate(rack: List<Tile>): RackEvalResult
+    fun evaluate(rack: List<Tile>, joker: Tile): RackEvalResult
 }
