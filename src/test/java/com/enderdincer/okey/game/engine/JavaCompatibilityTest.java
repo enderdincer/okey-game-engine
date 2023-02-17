@@ -4,6 +4,7 @@ import com.enderdincer.okey.game.engine.evaluator.DefaultRackEvaluator;
 import com.enderdincer.okey.game.engine.evaluator.RackEvaluator;
 import com.enderdincer.okey.game.engine.event.handler.GameEventHandler;
 import com.enderdincer.okey.game.engine.event.handler.GameEventHandlers;
+import com.enderdincer.okey.game.engine.model.GameConfigs;
 import org.junit.jupiter.api.Test;
 
 public class JavaCompatibilityTest {
@@ -16,6 +17,6 @@ public class JavaCompatibilityTest {
         final GameEventHandler gameEventHandler = GameEventHandlers.defaultGameEventHandler();
         System.out.println(gameEventHandler);
 
-        final RackEvaluator rackEvaluator = new DefaultRackEvaluator();
+        final RackEvaluator rackEvaluator = new DefaultRackEvaluator(GameConfigs.getDefaultGameConfig());
     }
 }

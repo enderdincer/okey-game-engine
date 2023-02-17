@@ -3,7 +3,7 @@ package com.enderdincer.okey.game.engine.model
 data class Tile(
         val number: Int? = null,
         val color: TileColor? = null,
-        val tileType: TileType,
+        val tileType: TileType = TileType.NUMBER_TILE,
 )
 
 enum class TileType {
