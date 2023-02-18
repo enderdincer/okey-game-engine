@@ -31,8 +31,8 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
             if (group.size < 5)
                 null
             else (2..group.size - 3).mapNotNull { index ->
-                    if (hasDuplicate(group, group[index])) {
-                        listOf(group.subList(0, index), group.subList(index + 1, group.size - 1))
+                    if (hasDuplicate(rack, group[index])) {
+                        listOf(group.subList(0, index+1), group.subList(index, group.size))
                     } else null
                 }.flatten()
         }.flatten()
