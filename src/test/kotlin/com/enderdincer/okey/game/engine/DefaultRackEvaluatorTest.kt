@@ -12,12 +12,21 @@ import org.junit.jupiter.api.Test
 
 class DefaultRackEvaluatorTest {
 
-    private val rackEvaluator = DefaultRackEvaluator(GameConfigs.getDefaultGameConfig())
+    private val rackEvaluator = DefaultRackEvaluator(gameConfig = GameConfigs.getDefaultGameConfig())
     private val objectMapper = ObjectMapper()
 
     @Test
     fun test() {
         val rack = objectMapper.readValue(TestUtils.TILES_NO_DUPLICATES_NO_JOKER_NO_FALSE_JOKER_FILE, object : TypeReference<List<Tile>>() {})
+        val joker = Tile(tileType = TileType.NUMBER_TILE, number = 3, color = TileColor.RED)
+        val result = rackEvaluator.evaluate(rack, joker)
+
+        println()
+    }
+
+    @Test
+    fun test2() {
+        val rack = objectMapper.readValue(TestUtils.TILES_NO_JOKER_NO_FALSE_JOKER_FILE, object : TypeReference<List<Tile>>() {})
         val joker = Tile(tileType = TileType.NUMBER_TILE, number = 3, color = TileColor.RED)
         val result = rackEvaluator.evaluate(rack, joker)
 
