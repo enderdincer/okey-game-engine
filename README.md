@@ -1,6 +1,3 @@
-# Hosting a Maven Repository on GitHub
+# Kotlin Game Engine for Turkish Game: "Okey"
 
-
-## 1. Introduction
-
-## 2. 
+WIP
