@@ -47,10 +47,13 @@ class DefaultRackEvaluatorTest {
 
     @Test
     fun test4() {
-        val sets = listOf("1R, 2R, 3R, 4R", "5B, 5Y, 5R", "7G, 8G, 9G, 10G, 11G, 12G, 13G")
+        val sets = listOf("1R, 2R, 3R, 4R", "5B, 5Y, 5R, 5R", "7G, 8G, 9G, 10G, 11G, 12G, 13G")
                 .map { TileHelper.getTilesFromString(it) }
+        val joker = Tile(tileType = TileType.NUMBER_TILE, number = 8, color = TileColor.RED)
 
-        val isWinning = rackEvaluator.isRackWinning(sets, Tile())
+        val result = rackEvaluator.evaluate(sets.flatten(), joker, 15)
+
+        val isWinning = rackEvaluator.isRackWinning(sets, Tile(), joker)
 
         Assertions.assertThat(isWinning).isTrue()
     }
@@ -59,8 +62,9 @@ class DefaultRackEvaluatorTest {
     fun test5() {
         val sets = listOf("1R, 2R, 3R, 3R", "5B, 5Y, 5R", "7G, 8G, 9G, 10G, 11G, 12G, 13G")
                 .map { TileHelper.getTilesFromString(it) }
+        val joker = Tile(tileType = TileType.NUMBER_TILE, number = 8, color = TileColor.RED)
 
-        val isWinning = rackEvaluator.isRackWinning(sets, Tile())
+        val isWinning = rackEvaluator.isRackWinning(sets, Tile(), joker)
 
         Assertions.assertThat(isWinning).isFalse()
     }
