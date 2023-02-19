@@ -1,5 +1,6 @@
 package com.enderdincer.okey.game.engine
 
+import com.enderdincer.okey.game.engine.commons.TileHelper
 import com.enderdincer.okey.game.engine.evaluator.Evaluators
 import com.enderdincer.okey.game.engine.model.Tile
 import com.enderdincer.okey.game.engine.model.TileColor
@@ -34,7 +35,7 @@ class DefaultRackEvaluatorTest {
     }
 
     @Test
-    fun test3(){
+    fun test3() {
         val rack = objectMapper.readValue(TestUtils.WINNING_RACK_FILE, object : TypeReference<List<Tile>>() {})
         Assertions.assertThat(rack).hasSize(15)
 
@@ -42,6 +43,26 @@ class DefaultRackEvaluatorTest {
         val result = rackEvaluator.evaluate(rack, joker)
 
         println()
+    }
+
+    @Test
+    fun test4() {
+        val sets = listOf("1R, 2R, 3R, 4R", "5B, 5Y, 5R", "7G, 8G, 9G, 10G, 11G, 12G, 13G")
+                .map { TileHelper.getTilesFromString(it) }
+
+        val isWinning = rackEvaluator.isRackWinning(sets, Tile())
+
+        Assertions.assertThat(isWinning).isTrue()
+    }
+
+    @Test
+    fun test5() {
+        val sets = listOf("1R, 2R, 3R, 3R", "5B, 5Y, 5R", "7G, 8G, 9G, 10G, 11G, 12G, 13G")
+                .map { TileHelper.getTilesFromString(it) }
+
+        val isWinning = rackEvaluator.isRackWinning(sets, Tile())
+
+        Assertions.assertThat(isWinning).isFalse()
     }
 
 }

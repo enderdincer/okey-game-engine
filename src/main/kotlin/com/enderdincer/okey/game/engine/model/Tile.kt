@@ -12,22 +12,22 @@ data class Tile(
                 return Tile()
             }
 
-            if (tileString.length == 2) {
-                return Tile(
-                        tileString.substring(0, 1).toInt(),
-                        TileColor.fromString(tileString.substring(1, 2))
-                )
-            }
+            val number = tileString.filter { it.isDigit() }.toInt()
+            val suffix = tileString.last().toString()
 
-            if (tileString.length == 3 && tileString.substring(2, 3) == "F") {
+            if (suffix == "F") {
                 return Tile(
-                        tileString.substring(0, 1).toInt(),
-                        TileColor.fromString(tileString.substring(1, 2)),
+                        number,
+                        TileColor.fromString(tileString.first { it.isLetter() }.toString()),
                         TileType.FALSE_JOKER
                 )
             }
 
-            throw RuntimeException("Tile string not valid!")
+            return Tile(
+                    number,
+                    TileColor.fromString(suffix),
+                    TileType.NUMBER_TILE
+            )
         }
     }
 
