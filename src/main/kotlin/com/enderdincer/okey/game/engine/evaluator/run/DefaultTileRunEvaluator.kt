@@ -46,8 +46,7 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
                     .filter { it.size >= 4 }
                     .map { findSubRun(it) }
                     .flatten().toList()
-
-
+    
     private fun findSubRun(run: List<Tile>): List<List<Tile>> {
         val subRuns = mutableListOf<List<Tile>>()
 

@@ -18,20 +18,20 @@ class DefaultRackEvaluator(
         return rackEvalResult
     }
 
-    private fun updateRackEvalResult(tiles: List<Tile>, joker: Tile, rackEvalResult: RackEvalResult, current: RackArrangement) {
+    private fun updateRackEvalResult(tiles: List<Tile>, joker: Tile, rackEvalResult: RackEvalResult, temp: RackArrangement) {
         val allSets = tileSetEvaluator.findAllSets(tiles, joker)
         if (allSets.isEmpty()) {
-            current.unusedTiles.addAll(tiles)
-            if (current.getTotalTileNumber() == gameConfig.numberOfTilesInRack + 1) {
-                rackEvalResult.allRackArrangements.add(RackArrangement.of(current))
-                current.unusedTiles.clear()
-                current.sets.clear()
+            temp.unusedTiles.addAll(tiles)
+            if (temp.getTotalTileNumber() == gameConfig.numberOfTilesInRack + 1) {
+                rackEvalResult.allRackArrangements.add(RackArrangement.of(temp))
             }
+            temp.unusedTiles.clear()
+            temp.sets.clear()
         } else {
             for (set in allSets) {
-                current.sets.add(set)
+                temp.sets.add(set)
                 val remainingTiles = removeTiles(tiles, set)
-                updateRackEvalResult(remainingTiles, joker, rackEvalResult, current)
+                updateRackEvalResult(remainingTiles, joker, rackEvalResult, temp)
             }
         }
     }
