@@ -46,14 +46,14 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
                     .filter { it.size >= 4 }
                     .map { findSubRun(it) }
                     .flatten().toList()
-    
+
     private fun findSubRun(run: List<Tile>): List<List<Tile>> {
         val subRuns = mutableListOf<List<Tile>>()
 
         (0 until run.size - 2).forEach { i ->
             (2 until run.size).forEach { j ->
                 if (j > i && j - i >= 2) {
-                    subRuns.add(run.subList(i, j+1))
+                    subRuns.add(run.subList(i, j + 1))
                 }
             }
         }
@@ -66,36 +66,40 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
         val mutableTiles = sortedSameColoredTiles.toMutableList()
         val tempRun = mutableListOf<Tile>()
         var numOfJokers = numberOfJokers
+        val numberOfOnes = mutableTiles.count { it.number == 1 }
 
         var i = 0
         while (i < mutableTiles.size) {
-            val currentTile: Tile = mutableTiles[i]
+            val currentTile = mutableTiles[i]
             if (tempRun.isEmpty()) {
                 tempRun.add(currentTile)
                 i++
                 continue
             }
-            val lastTileIntempRun: Tile = tempRun[tempRun.size - 1]
-            if ((lastTileIntempRun == currentTile)
+            val lastTileOfTempRun = tempRun[tempRun.size - 1]
+            if ((lastTileOfTempRun == currentTile)
                     && i < mutableTiles.size - 1) {
                 val removed: Tile = mutableTiles.removeAt(i)
                 mutableTiles.add(removed)
                 continue
             }
-            if (lastTileIntempRun.number!! + 1 == currentTile.number || lastTileIntempRun.number == 13
-                    && currentTile.number == 1) {
-                if (tempRun.size >= 2) {
-                    val tileBeforeTheLast: Tile = tempRun[tempRun.size - 2]
-                    if (tileBeforeTheLast.number == 13) {
-                        i++
-                        continue
+            if (lastTileOfTempRun.number!! + 1 == currentTile.number) {
+                tempRun.add(currentTile)
+
+                if (currentTile.number == 13 && tempRun.size >= 2) {
+                    if(tempRun.size < 13 && numberOfOnes >= 1){
+                        tempRun.add(mutableTiles[0])
+                    }
+
+                    if(tempRun.size == 13 && numberOfOnes == 2){
+                        tempRun.add(mutableTiles[0])
                     }
                 }
-                tempRun.add(currentTile)
                 i++
                 continue
             }
-            if ((lastTileIntempRun.number!! + 2 == currentTile.number || lastTileIntempRun.number == 12
+
+            if ((lastTileOfTempRun.number!! + 2 == currentTile.number || lastTileOfTempRun.number == 12
                             && currentTile.number == 1)
                     && numOfJokers > 0) {
                 tempRun.add(joker)
