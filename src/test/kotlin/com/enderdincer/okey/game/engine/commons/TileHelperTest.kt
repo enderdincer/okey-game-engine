@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test
 
 class TileHelperTest {
 
-
     @Test
-    fun removeTilesTest(){
+    fun removeTilesTest() {
         val tiles = listOf(
                 Tile(1, TileColor.RED),
                 Tile(2, TileColor.RED),
@@ -41,5 +40,14 @@ class TileHelperTest {
         )
 
         Assertions.assertThat(actualNewTiles).isEqualTo(expectedNewTiles)
+    }
+
+    @Test
+    fun getTilesFromStringTest() {
+        val rackString = "1R, 2R, 3R, 4R,6B, 6Y, 6G,3YF,9G"
+
+        val actualTiles = TileHelper.getTilesFromString(rackString)
+
+        Assertions.assertThat(true)
     }
 }
