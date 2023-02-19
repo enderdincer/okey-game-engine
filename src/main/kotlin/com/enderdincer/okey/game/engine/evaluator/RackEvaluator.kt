@@ -5,7 +5,6 @@ import com.enderdincer.okey.game.engine.model.Tile
 
 interface RackEvaluator {
 
-    fun evaluate(rack: List<Tile>, joker: Tile, rackSize: Int = 15): RackEvalResult
+    fun evaluate(rack: List<Tile>, joker: Tile): RackEvalResult
 
-    fun isRackWinning(sets: List<List<Tile>>, discardedTile: Tile, joker: Tile): Boolean
 }
