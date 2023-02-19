@@ -6,7 +6,6 @@ import com.enderdincer.okey.game.engine.model.*
 import java.util.*
 
 abstract class BaseGameEventHandler(
-        protected open val rackEvaluator: RackEvaluator
 ) : GameEventHandler {
 
     override fun handleCreateGame(prevGameState: GameState, gameEvent: GameEvent): GameState {

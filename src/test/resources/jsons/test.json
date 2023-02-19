@@ -1,0 +1,42 @@
+[
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 6,
+    "color": "GREEN"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 3,
+    "color": "GREEN"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 4,
+    "color": "GREEN"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 5,
+    "color": "GREEN"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 12,
+    "color": "RED"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 13,
+    "color": "RED"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 1,
+    "color": "RED"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 11,
+    "color": "RED"
+  }
+]

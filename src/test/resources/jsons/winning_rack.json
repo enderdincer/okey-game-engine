@@ -1,22 +1,22 @@
 [
   {
     "tileType": "NUMBER_TILE",
+    "number": 6,
+    "color": "GREEN"
+  },
+  {
+    "tileType": "NUMBER_TILE",
     "number": 3,
-    "color": "RED"
+    "color": "GREEN"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 2,
-    "color": "RED"
+    "number": 4,
+    "color": "GREEN"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 7,
-    "color": "RED"
-  },
-  {
-    "tileType": "NUMBER_TILE",
-    "number": 12,
+    "number": 5,
     "color": "GREEN"
   },
   {
@@ -26,12 +26,12 @@
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 8,
+    "number": 13,
     "color": "RED"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 7,
+    "number": 1,
     "color": "RED"
   },
   {
@@ -41,37 +41,37 @@
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 7,
-    "color": "GREEN"
-  },
-  {
-    "tileType": "NUMBER_TILE",
-    "number": 9,
+    "number": 10,
     "color": "BLACK"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 9,
+    "number": 10,
     "color": "RED"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 1,
+    "number": 10,
+    "color": "YELLOW"
+  },
+  {
+    "tileType": "NUMBER_TILE",
+    "number": 6,
     "color": "BLACK"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 1,
+    "number": 6,
     "color": "RED"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 1,
+    "number": 6,
     "color": "GREEN"
   },
   {
     "tileType": "NUMBER_TILE",
-    "number": 12,
-    "color": "BLACK"
+    "number": 10,
+    "color": "GREEN"
   }
 ]

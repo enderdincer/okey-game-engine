@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class DefaultGameEngineTest {
 
-    private val gameEngine = GameEngines.defaultGameEngine()
+    private val gameEngine = GameEngines.getDefaultGameEngine()
 
     @Test
     fun gameEngineSimulation() {

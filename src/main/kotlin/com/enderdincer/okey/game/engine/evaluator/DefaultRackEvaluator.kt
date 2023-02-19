@@ -1,45 +1,38 @@
 package com.enderdincer.okey.game.engine.evaluator
 
-import com.enderdincer.okey.game.engine.commons.TileHelper.addTiles
-import com.enderdincer.okey.game.engine.commons.ifTrue
-import com.enderdincer.okey.game.engine.evaluator.group.DefaultTileGroupEvaluator
-import com.enderdincer.okey.game.engine.evaluator.group.TileGroupEvaluator
-import com.enderdincer.okey.game.engine.evaluator.run.DefaultTileRunEvaluator
-import com.enderdincer.okey.game.engine.evaluator.run.TileRunEvaluator
-import com.enderdincer.okey.game.engine.model.*
+import com.enderdincer.okey.game.engine.commons.TileHelper.removeTiles
+import com.enderdincer.okey.game.engine.evaluator.set.TileSetEvaluator
+import com.enderdincer.okey.game.engine.model.GameConfig
+import com.enderdincer.okey.game.engine.model.RackArrangement
+import com.enderdincer.okey.game.engine.model.RackEvalResult
+import com.enderdincer.okey.game.engine.model.Tile
 
 class DefaultRackEvaluator(
         override val gameConfig: GameConfig,
-        override val tileGroupEvaluator: TileGroupEvaluator = DefaultTileGroupEvaluator(gameConfig),
-        override val tileRunEvaluator: TileRunEvaluator = DefaultTileRunEvaluator()
-) : BaseRackEvaluator(gameConfig, tileGroupEvaluator, tileRunEvaluator) {
+        override val tileSetEvaluator: TileSetEvaluator
+) : BaseRackEvaluator(gameConfig, tileSetEvaluator) {
 
     override fun evaluate(rack: List<Tile>, joker: Tile): RackEvalResult {
-        val allPossibleRackArrangements = findAllPossibleRackArrangements(rack, joker)
-        return RackEvalResult(bestArrangementByRemainingTiles = RackArrangement(listOf(), listOf()))
-//        return RackEvalResult(
-//                isWinning = isWinning(allPossibleRackArrangements),
-//                allPossibleRackArrangements = allPossibleRackArrangements,
-//                bestArrangementByRemainingTiles = bestArrangementByRemainingTiles(allPossibleRackArrangements)
-//        )
+        val rackEvalResult = RackEvalResult()
+        updateRackEvalResult(rack, joker, rackEvalResult, RackArrangement())
+        return rackEvalResult
     }
 
-    private fun findAllPossibleRackArrangements(rack: List<Tile>, joker: Tile): List<List<Tile>> {
-        val allArrangements = mutableListOf<List<Tile>>()
-//        allArrangements.addAll(tileGroupEvaluator.findAllGroups(rack, joker))
-        allArrangements.addAll(tileRunEvaluator.findAllRuns(rack, joker))
-        return allArrangements
-    }
-
-    private fun bestArrangementByRemainingTiles(allPossibleRackArrangements: List<RackArrangement>): RackArrangement {
-        return RackArrangement(listOf(), listOf())
-    }
-
-    private fun isWinning(allPossibleRackArrangements: List<RackArrangement>): Boolean {
-        return false
-    }
-
-    private fun toArrangement(tiles: List<Tile>): RackArrangement {
-        return RackArrangement(listOf(), listOf())
+    private fun updateRackEvalResult(tiles: List<Tile>, joker: Tile, rackEvalResult: RackEvalResult, current: RackArrangement) {
+        val allSets = tileSetEvaluator.findAllSets(tiles, joker)
+        if (allSets.isEmpty()) {
+            current.unusedTiles.addAll(tiles)
+            if (current.getTotalTileNumber() == gameConfig.numberOfTilesInRack + 1) {
+                rackEvalResult.allRackArrangements.add(RackArrangement.of(current))
+                current.unusedTiles.clear()
+                current.sets.clear()
+            }
+        } else {
+            for (set in allSets) {
+                current.sets.add(set)
+                val remainingTiles = removeTiles(tiles, set)
+                updateRackEvalResult(remainingTiles, joker, rackEvalResult, current)
+            }
+        }
     }
 }

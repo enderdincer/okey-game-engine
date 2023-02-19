@@ -1,6 +1,7 @@
 package com.enderdincer.okey.game.engine;
 
 import com.enderdincer.okey.game.engine.evaluator.DefaultRackEvaluator;
+import com.enderdincer.okey.game.engine.evaluator.Evaluators;
 import com.enderdincer.okey.game.engine.evaluator.RackEvaluator;
 import com.enderdincer.okey.game.engine.evaluator.group.DefaultTileGroupEvaluator;
 import com.enderdincer.okey.game.engine.evaluator.run.DefaultTileRunEvaluator;
@@ -14,18 +15,14 @@ public class JavaCompatibilityTest {
 
     @Test
     public void compatabilityTest() {
-        final String name = GameEngines.defaultGameEngine().getName();
+        final String name = GameEngines.getDefaultGameEngine(true).getName();
         System.out.println(name);
 
-        final GameEventHandler gameEventHandler = GameEventHandlers.defaultGameEventHandler();
+        final GameEventHandler gameEventHandler = GameEventHandlers.defaultGameEventHandler(true);
         System.out.println(gameEventHandler);
 
         final GameConfig gameConfig = GameConfigs.getDefaultGameConfig();
 
-        final RackEvaluator rackEvaluator = new DefaultRackEvaluator(
-                gameConfig,
-                new DefaultTileGroupEvaluator(gameConfig),
-                new DefaultTileRunEvaluator()
-        );
+        final RackEvaluator rackEvaluator = Evaluators.getDefaultRackEvaluator(true);
     }
 }

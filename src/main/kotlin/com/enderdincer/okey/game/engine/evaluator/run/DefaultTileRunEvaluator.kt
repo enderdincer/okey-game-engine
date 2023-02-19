@@ -18,10 +18,13 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
                 .sortedBy { it.number }
 
         val longRuns = findLongestRunsInSameColoredTiles(sortedSameColoredTiles, joker, numberOfJokers)
+        allRuns.addAll(longRuns)
 
         val splitRuns = splitLongRunsWithDuplicateTiles(longRuns, rack)
+        allRuns.addAll(splitRuns)
 
-        val subRuns = findSubRuns()
+        val subRuns = findSubRuns(allRuns)
+        allRuns.addAll(subRuns)
 
         return allRuns
     }
@@ -31,15 +34,32 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
             if (group.size < 5)
                 null
             else (2..group.size - 3).mapNotNull { index ->
-                    if (hasDuplicate(rack, group[index])) {
-                        listOf(group.subList(0, index+1), group.subList(index, group.size))
-                    } else null
-                }.flatten()
+                if (hasDuplicate(rack, group[index])) {
+                    listOf(group.subList(0, index + 1), group.subList(index, group.size))
+                } else null
+            }.flatten()
         }.flatten()
     }
 
-    private fun findSubRuns(): List<List<Tile>> {
-        return emptyList()
+    private fun findSubRuns(runs: List<List<Tile>>): List<List<Tile>> =
+            runs.asSequence()
+                    .filter { it.size >= 4 }
+                    .map { findSubRun(it) }
+                    .flatten().toList()
+
+
+    private fun findSubRun(run: List<Tile>): List<List<Tile>> {
+        val subRuns = mutableListOf<List<Tile>>()
+
+        (0 until run.size - 2).forEach { i ->
+            (2 until run.size).forEach { j ->
+                if (j > i && j - i >= 2) {
+                    subRuns.add(run.subList(i, j+1))
+                }
+            }
+        }
+
+        return subRuns
     }
 
     private fun findLongestRunsInSameColoredTiles(sortedSameColoredTiles: List<Tile>, joker: Tile, numberOfJokers: Int): List<List<Tile>> {
@@ -56,8 +76,8 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
                 i++
                 continue
             }
-            val lastTileIntempRun: Tile = tempRun.get(tempRun.size - 1)
-            if (lastTileIntempRun.equals(currentTile)
+            val lastTileIntempRun: Tile = tempRun[tempRun.size - 1]
+            if ((lastTileIntempRun == currentTile)
                     && i < mutableTiles.size - 1) {
                 val removed: Tile = mutableTiles.removeAt(i)
                 mutableTiles.add(removed)
@@ -92,6 +112,10 @@ class DefaultTileRunEvaluator : TileRunEvaluator {
             tempRun.add(currentTile)
             i++
         }
+        if (tempRun.size >= 3) {
+            runs.add(tempRun.toList())
+        }
+        tempRun.clear()
         return runs
     }
 }

@@ -7,6 +7,7 @@ object TestUtils {
 
     val TILES_NO_DUPLICATES_NO_JOKER_NO_FALSE_JOKER_FILE = File("src/test/resources/jsons/tiles_no_duplicate_no_false_joker.json")
     val TILES_NO_JOKER_NO_FALSE_JOKER_FILE = File("src/test/resources/jsons/tiles_no_false_joker.json")
+    val WINNING_RACK_FILE = File("src/test/resources/jsons/winning_rack.json")
 
 
     fun get4MockedPlayers(): MutableList<Player> = mutableListOf(
