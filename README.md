@@ -1,3 +1,3 @@
-# Kotlin Game Engine for Turkish Game: "Okey"
+# Kotlin Game Engine for Turkish Game - Okey
 
 WIP
