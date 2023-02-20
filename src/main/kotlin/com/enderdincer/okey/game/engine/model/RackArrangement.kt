@@ -2,7 +2,8 @@ package com.enderdincer.okey.game.engine.model
 
 data class RackArrangement(
         val unusedTiles: MutableList<Tile> = mutableListOf(),
-        val sets: MutableList<List<Tile>> = mutableListOf()
+        val sets: MutableList<List<Tile>> = mutableListOf(),
+        val pairs: List<List<Tile>> = listOf()
 ){
 
     companion object {
@@ -15,7 +16,7 @@ data class RackArrangement(
     }
 
     fun getTotalTileNumber() =
-            sets.flatten().count() + unusedTiles.size
+            sets.flatten().count() + unusedTiles.size + pairs.flatten().count()
 
 }
 

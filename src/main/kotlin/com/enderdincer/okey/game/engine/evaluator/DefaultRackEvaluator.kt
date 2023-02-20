@@ -1,6 +1,7 @@
 package com.enderdincer.okey.game.engine.evaluator
 
 import com.enderdincer.okey.game.engine.commons.TileHelper.removeTiles
+import com.enderdincer.okey.game.engine.evaluator.pair.TilePairEvaluator
 import com.enderdincer.okey.game.engine.evaluator.set.TileSetEvaluator
 import com.enderdincer.okey.game.engine.model.GameConfig
 import com.enderdincer.okey.game.engine.model.RackArrangement
@@ -9,22 +10,38 @@ import com.enderdincer.okey.game.engine.model.Tile
 
 class DefaultRackEvaluator(
         override val gameConfig: GameConfig,
-        override val tileSetEvaluator: TileSetEvaluator
-) : BaseRackEvaluator(gameConfig, tileSetEvaluator) {
+        override val tileSetEvaluator: TileSetEvaluator,
+        override val tilePairEvaluator: TilePairEvaluator
+) : BaseRackEvaluator(gameConfig, tileSetEvaluator, tilePairEvaluator) {
 
     override fun evaluate(rack: List<Tile>, joker: Tile): RackEvalResult {
         val rackEvalResult = RackEvalResult()
-        updateRackEvalResult(rack, joker, rackEvalResult, RackArrangement())
-        return rackEvalResult.copy(isWinning = isWinning(rackEvalResult.allRackArrangements))
+        updateResultWithSets(rack, joker, rackEvalResult, RackArrangement())
+        rackEvalResult.allRackArrangements.add(getRackArrangementForPairs(rack, joker))
+        val isWinning = isWinningBySets(rackEvalResult.allRackArrangements) || isWinningByPairs(rack, joker)
+        return rackEvalResult.copy(isWinning = isWinning)
     }
 
-    private fun isWinning(rackArrangements: List<RackArrangement>): Boolean {
-        val hasOnlyOneTileToDiscard = rackArrangements.any { it.unusedTiles.size == 1 }
+    private fun isWinningBySets(rackArrangements: List<RackArrangement>): Boolean {
+        val hasOnlyOneTileToDiscard = rackArrangements.filter { it.sets.isNotEmpty() }.any { it.unusedTiles.size == 1 }
         val canPickTileFromSetsToDiscard = rackArrangements.any { it.unusedTiles.isEmpty() && it.sets.any { set -> set.size > 3 } }
         return hasOnlyOneTileToDiscard || canPickTileFromSetsToDiscard
     }
 
-    private fun updateRackEvalResult(tiles: List<Tile>, joker: Tile, rackEvalResult: RackEvalResult, temp: RackArrangement) {
+    private fun isWinningByPairs(rack: List<Tile>, joker: Tile): Boolean {
+        val numberOfJokers = rack.count { it == joker }
+        val numberOfPairs = rack.asSequence().filter { it == joker }
+                .groupingBy { it.toString() }.eachCount().values.count { it == 2 }
+
+        return when (numberOfJokers) {
+            0 -> numberOfPairs == 7
+            1 -> numberOfPairs == 6
+            2 -> numberOfPairs == 5 || numberOfPairs == 6
+            else -> throw RuntimeException("More than 2 Jokers is not allowed!")
+        }
+    }
+
+    private fun updateResultWithSets(tiles: List<Tile>, joker: Tile, rackEvalResult: RackEvalResult, temp: RackArrangement) {
         val allSets = tileSetEvaluator.findAllSets(tiles, joker)
         if (allSets.isEmpty()) {
             temp.unusedTiles.addAll(tiles)
@@ -37,8 +54,18 @@ class DefaultRackEvaluator(
             for (set in allSets) {
                 temp.sets.add(set)
                 val remainingTiles = removeTiles(tiles, set)
-                updateRackEvalResult(remainingTiles, joker, rackEvalResult, temp)
+                updateResultWithSets(remainingTiles, joker, rackEvalResult, temp)
             }
         }
+    }
+
+    private fun getRackArrangementForPairs(rack: List<Tile>, joker: Tile): RackArrangement{
+        val pairs = tilePairEvaluator.findAllPairs(rack, joker)
+        val flattenedPairs = pairs.flatten()
+        val unusedTiles = rack.filter { !flattenedPairs.contains(it) }
+        return RackArrangement(
+                unusedTiles = unusedTiles.toMutableList(),
+                pairs = pairs
+        )
     }
 }
