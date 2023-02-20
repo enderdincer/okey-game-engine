@@ -8,11 +8,7 @@ data class GameState(
         val nextPlayerId: Int? = null,
         val centerTileStack: List<Tile>? = null,
         val gameConfig: GameConfig? = null,
-        val lastAction: GameEvent? = null
-)
-
-data class PlayerState(
-        val playerId: String,
-        val rack: List<Tile>? = null,
-        val discardTileStack: List<Tile>? = null
+        val lastAction: GameEvent? = null,
+        val isGameOverByPlayerWin: Boolean = false,
+        val winningPlayer: Player? = null
 )

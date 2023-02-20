@@ -6,6 +6,7 @@ import com.enderdincer.okey.game.engine.model.*
 import java.util.*
 
 abstract class BaseGameEventHandler(
+        protected open val rackEvaluator: RackEvaluator
 ) : GameEventHandler {
 
     override fun handleCreateGame(prevGameState: GameState, gameEvent: GameEvent): GameState {
@@ -47,8 +48,16 @@ abstract class BaseGameEventHandler(
     }
 
     override fun handleDeclareWin(prevGameState: GameState, gameEvent: GameEvent): GameState {
-        // TODO IMPL
-        return prevGameState
+        val playerId = gameEvent.players?.get(0)?.playerId ?: throw RuntimeException("No player found.")
+        val winningPlayer = prevGameState.players!!.find { it.playerId == playerId } ?: throw RuntimeException("")
+        val rackEvalResult = rackEvaluator.evaluate(winningPlayer.rack!!, prevGameState.joker!!)
+        val isWinning = rackEvalResult.isWinning
+
+        if (!isWinning) {
+            throw RuntimeException("Player has declared win but has no winning rack arrangement.")
+        }
+
+        return prevGameState.copy(isGameOverByPlayerWin = rackEvalResult.isWinning, winningPlayer = winningPlayer)
     }
 
     override fun handleDiscardTile(prevGameState: GameState, gameEvent: GameEvent): GameState {

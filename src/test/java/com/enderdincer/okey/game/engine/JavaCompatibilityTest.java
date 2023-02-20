@@ -16,14 +16,14 @@ public class JavaCompatibilityTest {
         final String shortName = TileColor.RED.getShortName();
         final int  colorId = TileColor.GREEN.getColorId();
 
-        final String name = GameEngines.getDefaultGameEngine(true).getName();
+        final String name = GameEngines.getDefaultGameEngine().getName();
         System.out.println(name);
 
-        final GameEventHandler gameEventHandler = GameEventHandlers.defaultGameEventHandler(true);
+        final GameEventHandler gameEventHandler = GameEventHandlers.getDefaultGameEventHandler();
         System.out.println(gameEventHandler);
 
         final GameConfig gameConfig = GameConfigs.getDefaultGameConfig();
 
-        final RackEvaluator rackEvaluator = Evaluators.getDefaultRackEvaluator(true);
+        final RackEvaluator rackEvaluator = Evaluators.getDefaultRackEvaluator();
     }
 }

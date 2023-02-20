@@ -30,7 +30,7 @@ class DefaultRackEvaluator(
 
     private fun isWinningByPairs(rack: List<Tile>, joker: Tile): Boolean {
         val numberOfJokers = rack.count { it == joker }
-        val numberOfPairs = rack.asSequence().filter { it == joker }
+        val numberOfPairs = rack.asSequence().filter { it != joker }
                 .groupingBy { it.toString() }.eachCount().values.count { it == 2 }
 
         return when (numberOfJokers) {
@@ -60,11 +60,11 @@ class DefaultRackEvaluator(
     }
 
     private fun getRackArrangementForPairs(rack: List<Tile>, joker: Tile): RackArrangement{
-        val pairs = tilePairEvaluator.findAllPairs(rack, joker)
-        val flattenedPairs = pairs.flatten()
-        val unusedTiles = rack.filter { !flattenedPairs.contains(it) }
+        val pairArrangement = tilePairEvaluator.findAllPairs(rack, joker)
+        val pairs = pairArrangement.filter { it.size == 2 }
+        val unusedTiles = pairArrangement.filter { it.size == 1 }.flatten().toMutableList()
         return RackArrangement(
-                unusedTiles = unusedTiles.toMutableList(),
+                unusedTiles = unusedTiles,
                 pairs = pairs
         )
     }

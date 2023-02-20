@@ -25,7 +25,8 @@ object TileHelper {
 
     @JvmStatic
     fun getTilesFromString(tilesString: String, delimiter: String = ","): List<Tile> =
-            tilesString.replace("[", "")
+            tilesString.uppercase()
+                    .replace("[", "")
                     .replace("]", "")
                     .replace(" ", "")
                     .split(delimiter)

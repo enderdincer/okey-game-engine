@@ -8,14 +8,14 @@ data class Tile(
     companion object {
         @JvmStatic
         fun fromString(tileString: String): Tile {
-            if (tileString == "X") {
+            if (tileString.equals("X", ignoreCase = true)) {
                 return Tile()
             }
 
             val number = tileString.filter { it.isDigit() }.toInt()
             val suffix = tileString.last().toString()
 
-            if (suffix == "F") {
+            if (suffix.equals("F", ignoreCase = true)) {
                 return Tile(
                         number,
                         TileColor.fromString(tileString.first { it.isLetter() }.toString()),
@@ -60,7 +60,7 @@ enum class TileColor(
     companion object {
         fun fromString(tileColorString: String): TileColor =
                 try {
-                    TileColor.values().find { it.shortName == tileColorString }!!
+                    TileColor.values().find { it.shortName.equals(tileColorString, ignoreCase = true) }!!
                 } catch (e: Exception) {
                     throw RuntimeException("Tile color string not valid!")
                 }

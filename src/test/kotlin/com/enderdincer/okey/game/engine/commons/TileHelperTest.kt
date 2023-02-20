@@ -2,6 +2,7 @@ package com.enderdincer.okey.game.engine.commons
 
 import com.enderdincer.okey.game.engine.model.Tile
 import com.enderdincer.okey.game.engine.model.TileColor
+import com.enderdincer.okey.game.engine.model.TileType
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -48,6 +49,18 @@ class TileHelperTest {
 
         val actualTiles = TileHelper.getTilesFromString(rackString)
 
-        Assertions.assertThat(true)
+        val expectedTiles = listOf(
+                Tile(number = 1, color = TileColor.RED),
+                Tile(number = 2, color = TileColor.RED),
+                Tile(number = 3, color = TileColor.RED),
+                Tile(number = 4, color = TileColor.RED),
+                Tile(number = 6, color = TileColor.BLACK),
+                Tile(number = 6, color = TileColor.YELLOW),
+                Tile(number = 6, color = TileColor.GREEN),
+                Tile(number = 3, color = TileColor.YELLOW, tileType = TileType.FALSE_JOKER),
+                Tile(number = 9, color = TileColor.GREEN),
+        )
+
+        Assertions.assertThat(actualTiles).isEqualTo(expectedTiles)
     }
 }
