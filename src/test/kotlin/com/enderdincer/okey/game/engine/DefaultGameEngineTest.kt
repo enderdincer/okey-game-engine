@@ -35,7 +35,7 @@ class DefaultGameEngineTest {
 
         val selectedTile = startedGameState.players!![0].rack?.get(0)!!
         val preDiscardTileState = startedGameState.copy()
-        val discardTileGameEvent = GameEvent(type = GameEventType.DISCARD_TILE, tile = selectedTile, players = listOf(Player(playerId = "Ender")))
+        val discardTileGameEvent = GameEvent(type = GameEventType.DISCARD_TILE, tile = selectedTile, players = listOf(Player(playerId = "Player 1")))
         val afterDiscardTileState = gameEngine.getNextGameState(preDiscardTileState, discardTileGameEvent)
 
         Assertions.assertThat(afterDiscardTileState.centerTileStack).hasSize(49)
@@ -45,7 +45,7 @@ class DefaultGameEngineTest {
         Assertions.assertThat(afterDiscardTileState.players!![0].discardTileStack).hasSize(1)
 
         val preDrawTileState = afterDiscardTileState.copy()
-        val drawTileGameEvent = GameEvent(type = GameEventType.DRAW_TILE_FROM_CENTER_TILE_STACK, players = listOf(Player(playerId = "Taner")))
+        val drawTileGameEvent = GameEvent(type = GameEventType.DRAW_TILE_FROM_CENTER_TILE_STACK, players = listOf(Player(playerId = "Player 2")))
         val afterDrawTileState = gameEngine.getNextGameState(preDrawTileState, drawTileGameEvent)
 
         Assertions.assertThat(afterDrawTileState.centerTileStack).hasSize(48)
@@ -57,7 +57,7 @@ class DefaultGameEngineTest {
 
         val selectedTile2 = startedGameState.players!![1].rack?.get(5)!!
         val preDiscardTileState2 = afterDrawTileState.copy()
-        val discardTileEvent2 = GameEvent(type = GameEventType.DISCARD_TILE, tile = selectedTile2, players = listOf(Player(playerId = "Taner")))
+        val discardTileEvent2 = GameEvent(type = GameEventType.DISCARD_TILE, tile = selectedTile2, players = listOf(Player(playerId = "Player 3")))
         val discardedTileState2 = gameEngine.getNextGameState(preDiscardTileState2, discardTileEvent2)
 
         Assertions.assertThat(discardedTileState2.centerTileStack).hasSize(48)
@@ -69,7 +69,7 @@ class DefaultGameEngineTest {
         Assertions.assertThat(discardedTileState2.players!![1].discardTileStack).hasSize(1)
 
         val preDrawTileState2 = discardedTileState2.copy()
-        val drawTileGameEvent2 = GameEvent(type = GameEventType.DRAW_TILE_FROM_DISCARD_TILE_STACK, players = listOf(Player(playerId = "Mustafa")))
+        val drawTileGameEvent2 = GameEvent(type = GameEventType.DRAW_TILE_FROM_DISCARD_TILE_STACK, players = listOf(Player(playerId = "Player 4")))
         val drawnTileState2 = gameEngine.getNextGameState(preDrawTileState2, drawTileGameEvent2)
 
         Assertions.assertThat(drawnTileState2.centerTileStack).hasSize(48)
