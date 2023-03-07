@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class JavaCompatibilityTest {
 
     @Test
-    public void compatabilityTest() {
+    public void testFieldAndMethodAccess() {
         final String shortName = TileColor.RED.getShortName();
         final int  colorId = TileColor.GREEN.getColorId();
 
