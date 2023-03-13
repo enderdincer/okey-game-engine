@@ -9,7 +9,7 @@ class DefaultGameEngine(
         private val gameEventHandler: GameEventHandler,
 ) : GameEngine {
 
-    override fun getName(): String = "Okey Game Engine 2"
+    override fun getName(): String = "Okey Game Engine"
 
     override fun createGame(gameId: String) = GameState(gameId = gameId)
 
