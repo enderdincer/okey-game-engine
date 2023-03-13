@@ -1,8 +1,8 @@
 package com.enderdincer.okey.game.engine.commons
 
-import com.enderdincer.okey.game.engine.model.Tile
+import com.enderdincer.okey.game.engine.domain.Tile
 
-object TileHelper {
+object Tiles {
 
     @JvmStatic
     fun addTiles(tiles: List<Tile>, vararg newTiles: Tile): List<Tile> {

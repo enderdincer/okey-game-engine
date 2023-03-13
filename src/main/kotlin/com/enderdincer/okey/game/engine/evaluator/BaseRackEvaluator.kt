@@ -2,7 +2,7 @@ package com.enderdincer.okey.game.engine.evaluator
 
 import com.enderdincer.okey.game.engine.evaluator.pair.TilePairEvaluator
 import com.enderdincer.okey.game.engine.evaluator.set.TileSetEvaluator
-import com.enderdincer.okey.game.engine.model.GameConfig
+import com.enderdincer.okey.game.engine.config.GameConfig
 
 abstract class BaseRackEvaluator(
         protected open val gameConfig: GameConfig,

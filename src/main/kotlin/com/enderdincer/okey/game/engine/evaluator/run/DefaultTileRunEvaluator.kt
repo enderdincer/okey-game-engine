@@ -1,8 +1,8 @@
 package com.enderdincer.okey.game.engine.evaluator.run
 
-import com.enderdincer.okey.game.engine.commons.TileHelper.hasDuplicate
-import com.enderdincer.okey.game.engine.model.Tile
-import com.enderdincer.okey.game.engine.model.TileColor
+import com.enderdincer.okey.game.engine.commons.Tiles.hasDuplicate
+import com.enderdincer.okey.game.engine.domain.Tile
+import com.enderdincer.okey.game.engine.domain.TileColor
 
 class DefaultTileRunEvaluator : TileRunEvaluator {
 

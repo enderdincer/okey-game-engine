@@ -4,7 +4,7 @@ import com.enderdincer.okey.game.engine.evaluator.group.DefaultTileGroupEvaluato
 import com.enderdincer.okey.game.engine.evaluator.pair.DefaultTilePairEvaluator
 import com.enderdincer.okey.game.engine.evaluator.run.DefaultTileRunEvaluator
 import com.enderdincer.okey.game.engine.evaluator.set.DefaultTileSetEvaluator
-import com.enderdincer.okey.game.engine.model.GameConfigs
+import com.enderdincer.okey.game.engine.config.GameConfigs
 
 object Evaluators {
 

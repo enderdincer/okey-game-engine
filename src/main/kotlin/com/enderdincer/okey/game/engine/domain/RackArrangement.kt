@@ -1,10 +1,10 @@
-package com.enderdincer.okey.game.engine.model
+package com.enderdincer.okey.game.engine.domain
 
 data class RackArrangement(
         val unusedTiles: MutableList<Tile> = mutableListOf(),
         val sets: MutableList<List<Tile>> = mutableListOf(),
         val pairs: List<List<Tile>> = listOf()
-){
+) {
 
     companion object {
 

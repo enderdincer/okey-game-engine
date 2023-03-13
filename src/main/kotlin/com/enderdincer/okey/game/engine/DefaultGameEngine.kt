@@ -1,9 +1,9 @@
 package com.enderdincer.okey.game.engine
 
 import com.enderdincer.okey.game.engine.event.handler.GameEventHandler
-import com.enderdincer.okey.game.engine.model.GameEvent
-import com.enderdincer.okey.game.engine.model.GameEventType
-import com.enderdincer.okey.game.engine.model.GameState
+import com.enderdincer.okey.game.engine.domain.GameEvent
+import com.enderdincer.okey.game.engine.domain.GameEventType
+import com.enderdincer.okey.game.engine.domain.GameState
 
 class DefaultGameEngine(
         private val gameEventHandler: GameEventHandler,

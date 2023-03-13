@@ -1,9 +1,9 @@
 package com.enderdincer.okey.game.engine.evaluator.group
 
-import com.enderdincer.okey.game.engine.commons.TileHelper
+import com.enderdincer.okey.game.engine.commons.Tiles
 import com.enderdincer.okey.game.engine.commons.ifTrue
-import com.enderdincer.okey.game.engine.model.GameConfig
-import com.enderdincer.okey.game.engine.model.Tile
+import com.enderdincer.okey.game.engine.config.GameConfig
+import com.enderdincer.okey.game.engine.domain.Tile
 
 class DefaultTileGroupEvaluator(private val gameConfig: GameConfig): TileGroupEvaluator {
 
@@ -18,8 +18,8 @@ class DefaultTileGroupEvaluator(private val gameConfig: GameConfig): TileGroupEv
                     .asSequence()
                     .map { group ->
                         when (group.size) {
-                            2 -> listOf(TileHelper.addTiles(group, joker))
-                            3 -> listOf(group, TileHelper.addTiles(group, joker))
+                            2 -> listOf(Tiles.addTiles(group, joker))
+                            3 -> listOf(group, Tiles.addTiles(group, joker))
                             else -> listOf()
                         }
                     }.flatten().toList()
@@ -30,9 +30,9 @@ class DefaultTileGroupEvaluator(private val gameConfig: GameConfig): TileGroupEv
                     .asSequence()
                     .map { group ->
                         when (group.size) {
-                            1 -> listOf(TileHelper.addTiles(group, joker, joker))
-                            2 -> listOf(TileHelper.addTiles(group, joker), TileHelper.addTiles(group, joker, joker))
-                            3 -> listOf(group, TileHelper.addTiles(group, joker))
+                            1 -> listOf(Tiles.addTiles(group, joker, joker))
+                            2 -> listOf(Tiles.addTiles(group, joker), Tiles.addTiles(group, joker, joker))
+                            3 -> listOf(group, Tiles.addTiles(group, joker))
                             else -> listOf()
                         }
                     }.flatten().toList()

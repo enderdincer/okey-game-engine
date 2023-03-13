@@ -1,6 +1,6 @@
 package com.enderdincer.okey.game.engine.evaluator.group
 
-import com.enderdincer.okey.game.engine.model.Tile
+import com.enderdincer.okey.game.engine.domain.Tile
 
 interface TileGroupEvaluator {
 

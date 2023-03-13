@@ -1,12 +1,11 @@
 package com.enderdincer.okey.game.engine.evaluator
 
-import com.enderdincer.okey.game.engine.commons.TileHelper.removeTiles
+import com.enderdincer.okey.game.engine.commons.Tiles.removeTiles
 import com.enderdincer.okey.game.engine.evaluator.pair.TilePairEvaluator
 import com.enderdincer.okey.game.engine.evaluator.set.TileSetEvaluator
-import com.enderdincer.okey.game.engine.model.GameConfig
-import com.enderdincer.okey.game.engine.model.RackArrangement
-import com.enderdincer.okey.game.engine.model.RackEvalResult
-import com.enderdincer.okey.game.engine.model.Tile
+import com.enderdincer.okey.game.engine.config.GameConfig
+import com.enderdincer.okey.game.engine.domain.RackArrangement
+import com.enderdincer.okey.game.engine.domain.Tile
 
 class DefaultRackEvaluator(
         override val gameConfig: GameConfig,
@@ -59,7 +58,7 @@ class DefaultRackEvaluator(
         }
     }
 
-    private fun getRackArrangementForPairs(rack: List<Tile>, joker: Tile): RackArrangement{
+    private fun getRackArrangementForPairs(rack: List<Tile>, joker: Tile): RackArrangement {
         val pairArrangement = tilePairEvaluator.findAllPairs(rack, joker)
         val pairs = pairArrangement.filter { it.size == 2 }
         val unusedTiles = pairArrangement.filter { it.size == 1 }.flatten().toMutableList()

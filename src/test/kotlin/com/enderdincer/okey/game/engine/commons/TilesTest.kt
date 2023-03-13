@@ -1,12 +1,12 @@
 package com.enderdincer.okey.game.engine.commons
 
-import com.enderdincer.okey.game.engine.model.Tile
-import com.enderdincer.okey.game.engine.model.TileColor
-import com.enderdincer.okey.game.engine.model.TileType
+import com.enderdincer.okey.game.engine.domain.Tile
+import com.enderdincer.okey.game.engine.domain.TileColor
+import com.enderdincer.okey.game.engine.domain.TileType
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
-class TileHelperTest {
+class TilesTest {
 
     @Test
     fun removeTilesTest() {
@@ -28,7 +28,7 @@ class TileHelperTest {
                 Tile(3, TileColor.RED),
         )
 
-        val actualNewTiles = TileHelper.removeTiles(tiles, tilesToRomve)
+        val actualNewTiles = Tiles.removeTiles(tiles, tilesToRomve)
 
         val expectedNewTiles = listOf(
                 Tile(2, TileColor.RED),
@@ -47,7 +47,7 @@ class TileHelperTest {
     fun getTilesFromStringTest() {
         val rackString = "1R, 2R, 3R, 4R,6B, 6Y, 6G,3YF,9G"
 
-        val actualTiles = TileHelper.getTilesFromString(rackString)
+        val actualTiles = Tiles.getTilesFromString(rackString)
 
         val expectedTiles = listOf(
                 Tile(number = 1, color = TileColor.RED),

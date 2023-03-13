@@ -1,4 +1,6 @@
-package com.enderdincer.okey.game.engine.model
+package com.enderdincer.okey.game.engine.domain
+
+import com.enderdincer.okey.game.engine.config.GameConfig
 
 data class GameState(
         val gameId: String? = null,

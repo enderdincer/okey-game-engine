@@ -1,4 +1,4 @@
-package com.enderdincer.okey.game.engine.model
+package com.enderdincer.okey.game.engine.domain
 
 data class Player(
         val playerId: String,
@@ -22,7 +22,6 @@ data class Player(
         rack!!.removeAt(tileIndex)
         discardTileStack!!.add(matchingTileInRack)
     }
-
 
     override fun toString(): String {
         return ""

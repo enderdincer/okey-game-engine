@@ -1,8 +1,8 @@
 package com.enderdincer.okey.game.engine.evaluator.set
 
+import com.enderdincer.okey.game.engine.domain.Tile
 import com.enderdincer.okey.game.engine.evaluator.group.TileGroupEvaluator
 import com.enderdincer.okey.game.engine.evaluator.run.TileRunEvaluator
-import com.enderdincer.okey.game.engine.model.Tile
 
 class DefaultTileSetEvaluator(
         private val tileGroupEvaluator: TileGroupEvaluator,

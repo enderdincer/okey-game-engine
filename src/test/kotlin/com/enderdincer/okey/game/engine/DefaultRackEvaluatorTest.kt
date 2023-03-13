@@ -1,8 +1,8 @@
 package com.enderdincer.okey.game.engine
 
-import com.enderdincer.okey.game.engine.commons.TileHelper
+import com.enderdincer.okey.game.engine.commons.Tiles
 import com.enderdincer.okey.game.engine.evaluator.Evaluators
-import com.enderdincer.okey.game.engine.model.Tile
+import com.enderdincer.okey.game.engine.domain.Tile
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -22,7 +22,7 @@ class DefaultRackEvaluatorTest {
     ], delimiter = '_')
     fun `Parameterized RackEvaluator Test`(testName: String, rackString: String, jokerString: String, isWinning: Boolean) {
         println("Test: $testName")
-        val shuffledRack = TileHelper.getTilesFromString(rackString).shuffled()
+        val shuffledRack = Tiles.getTilesFromString(rackString).shuffled()
         val jokerTile = Tile.fromString(jokerString)
         val expectedGameResult = isWinning
 

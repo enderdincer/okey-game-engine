@@ -1,4 +1,4 @@
-package com.enderdincer.okey.game.engine.model
+package com.enderdincer.okey.game.engine.config
 
 object GameConfigs {
 

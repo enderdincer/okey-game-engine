@@ -1,6 +1,6 @@
 package com.enderdincer.okey.game.engine.utils
 
-import com.enderdincer.okey.game.engine.model.Player
+import com.enderdincer.okey.game.engine.domain.Player
 import java.io.File
 
 object TestUtils {

@@ -1,8 +1,9 @@
 package com.enderdincer.okey.game.engine.event.handler
 
+import com.enderdincer.okey.game.engine.config.GameConfig
 import com.enderdincer.okey.game.engine.evaluator.RackEvaluator
 import com.enderdincer.okey.game.engine.exception.InvalidGameConfigException
-import com.enderdincer.okey.game.engine.model.*
+import com.enderdincer.okey.game.engine.domain.*
 import java.util.*
 
 abstract class BaseGameEventHandler(
