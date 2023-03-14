@@ -8,10 +8,10 @@ import com.enderdincer.okey.game.engine.domain.RackArrangement
 import com.enderdincer.okey.game.engine.domain.Tile
 
 class DefaultRackEvaluator(
-        override val gameConfig: GameConfig,
-        override val tileSetEvaluator: TileSetEvaluator,
-        override val tilePairEvaluator: TilePairEvaluator
-) : BaseRackEvaluator(gameConfig, tileSetEvaluator, tilePairEvaluator) {
+        private val gameConfig: GameConfig,
+        private val tileSetEvaluator: TileSetEvaluator,
+        private val tilePairEvaluator: TilePairEvaluator
+) : RackEvaluator {
 
     override fun evaluate(rack: List<Tile>, joker: Tile): RackEvalResult {
         val rackEvalResult = RackEvalResult()

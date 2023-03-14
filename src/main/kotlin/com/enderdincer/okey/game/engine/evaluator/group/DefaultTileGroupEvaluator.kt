@@ -58,5 +58,4 @@ class DefaultTileGroupEvaluator(private val gameConfig: GameConfig): TileGroupEv
         }
         return allGroupsByMinSize
     }
-
 }

@@ -83,7 +83,6 @@ class DefaultGameEngineTest {
         Assertions.assertThat(drawnTileState2.players!![2].rack).hasSize(15)
         Assertions.assertThat(drawnTileState2.players!![2].discardTileStack).hasSize(0)
 
-
         println("======= END OF SIMULATION =======")
     }
 }

@@ -1,16 +1,24 @@
 package com.enderdincer.okey.game.engine.event.handler
 
+import com.enderdincer.okey.game.engine.domain.GameEventType
 import com.enderdincer.okey.game.engine.evaluator.Evaluators
+import com.enderdincer.okey.game.engine.event.validator.GameEventValidators
 
 object GameEventHandlers {
 
-    private val DEFAULT_GAME_EVENT_HANDLER = DefaultGameEventHandler(Evaluators.getDefaultRackEvaluator())
-
     @JvmStatic
-    fun getDefaultGameEventHandler() = getDefaultGameEventHandler(true)
+    fun getGameEventHandler(gameEventType: GameEventType): GameEventHandler {
+        val gameEventValidator = GameEventValidators.getDefaultGameEventValidator()
+        val rackEvaluator = Evaluators.getDefaultRackEvaluator()
 
-    @JvmStatic
-    fun getDefaultGameEventHandler(isSingleton: Boolean = true): GameEventHandler =
-            if (isSingleton) DEFAULT_GAME_EVENT_HANDLER
-            else DefaultGameEventHandler(Evaluators.getDefaultRackEvaluator())
+        return when (gameEventType) {
+            GameEventType.CREATE_GAME -> CreateGameEventHandler(gameEventValidator)
+            GameEventType.ADD_PLAYER -> AddPlayerGameEventHandler(gameEventValidator)
+            GameEventType.START_GAME -> StartGameEventHandler(gameEventValidator)
+            GameEventType.DRAW_TILE_FROM_CENTER_TILE_STACK -> DrawFromCenterTileStackGameEventHandler(gameEventValidator)
+            GameEventType.DRAW_TILE_FROM_DISCARD_TILE_STACK -> DrawFromDiscardTileStackGameEventHandler(gameEventValidator)
+            GameEventType.DISCARD_TILE -> DiscardTileGameEventHandler(gameEventValidator)
+            GameEventType.DECLARE_WIN -> DeclareWinGameEventHandler(rackEvaluator, gameEventValidator)
+        }
+    }
 }

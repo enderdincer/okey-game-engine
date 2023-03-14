@@ -1,5 +1,6 @@
 package com.enderdincer.okey.game.engine;
 
+import com.enderdincer.okey.game.engine.domain.GameEventType;
 import com.enderdincer.okey.game.engine.evaluator.Evaluators;
 import com.enderdincer.okey.game.engine.evaluator.RackEvaluator;
 import com.enderdincer.okey.game.engine.event.handler.GameEventHandler;
@@ -18,7 +19,7 @@ public class JavaCompatibilityTest {
         final String name = GameEngines.getDefaultGameEngine().getName();
         System.out.println(name);
 
-        final GameEventHandler gameEventHandler = GameEventHandlers.getDefaultGameEventHandler();
+        final GameEventHandler gameEventHandler = GameEventHandlers.getGameEventHandler(GameEventType.CREATE_GAME);
         System.out.println(gameEventHandler);
 
         final GameConfig gameConfig = GameConfigs.getDefaultGameConfig();
