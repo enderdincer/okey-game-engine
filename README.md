@@ -33,4 +33,4 @@ For architecture, implementation details and missing bits you can see my article
 
 ### License
 
-The license can be found [here](https://github.com/enderdincer/okey-game-engine/blob/main/LICENSE).
+The license can be found [here](https://github.com/enderdincer/okey-game-engine/blob/master/LICENSE).
