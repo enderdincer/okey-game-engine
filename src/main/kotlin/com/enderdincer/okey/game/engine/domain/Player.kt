@@ -20,8 +20,4 @@ data class Player(
         rack!!.removeAt(tileIndex)
         discardTileStack!!.add(matchingTileInRack)
     }
-
-    override fun toString(): String {
-        return ""
-    }
 }
