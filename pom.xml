@@ -6,7 +6,7 @@
 
     <groupId>com.enderdincer.games</groupId>
     <artifactId>okey-game-engine</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
     <scm>
         <url>https://github.com/enderdincer/okey-game-engine.git</url>
     </scm>
