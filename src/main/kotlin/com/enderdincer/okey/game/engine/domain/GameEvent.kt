@@ -6,8 +6,6 @@ data class GameEvent(
         val type: GameEventType,
         val players: List<Player>? = null,
         val tile: Tile? = null,
-        val sourceTileCollection: List<Tile>? = null,
-        val targetTileCollection: List<Tile>? = null,
         val gameConfig: GameConfig? = null,
 )
 

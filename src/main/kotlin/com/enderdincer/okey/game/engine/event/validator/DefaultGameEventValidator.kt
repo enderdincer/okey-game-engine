@@ -2,10 +2,13 @@ package com.enderdincer.okey.game.engine.event.validator
 
 import com.enderdincer.okey.game.engine.domain.GameEvent
 import com.enderdincer.okey.game.engine.domain.GameState
+import com.enderdincer.okey.game.engine.evaluator.RackEvaluator
 import com.enderdincer.okey.game.engine.exception.GameEventValidationException
 import com.enderdincer.okey.game.engine.exception.InvalidGameConfigException
 
-class DefaultGameEventValidator : GameEventValidator {
+class DefaultGameEventValidator(
+        private val rackEvaluator: RackEvaluator
+) : GameEventValidator {
 
     override fun validateCreateGameEvent(gameState: GameState, gameEvent: GameEvent) {
         if (gameState.gameId == null) {
@@ -42,7 +45,12 @@ class DefaultGameEventValidator : GameEventValidator {
     }
 
     override fun validateDeclareWinGameEvent(gameState: GameState, gameEvent: GameEvent) {
-        // TODO: implement
+        val playerId = gameEvent.players?.get(0)?.playerId ?: throw GameEventValidationException("No player found in DECLARE_WIN event.")
+        val winningPlayer = gameState.players!!.find { it.playerId == playerId } ?: throw GameEventValidationException("No matching player found in game state for DECLARE_WIN event.")
+        val rackEvalResult = rackEvaluator.evaluate(winningPlayer.rack!!, gameState.joker!!)
+        if (!rackEvalResult.isWinning) {
+            throw GameEventValidationException("Player has declared win but has no winning rack arrangement.")
+        }
     }
 
     override fun validateDiscardTileGameEvent(gameState: GameState, gameEvent: GameEvent) {

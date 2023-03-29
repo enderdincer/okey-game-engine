@@ -4,8 +4,6 @@ data class Player(
         val playerId: String,
         var rack: MutableList<Tile>? = null,
         var discardTileStack: MutableList<Tile>? = null,
-        var leftPlayer: Player? = null,
-        var rightPlayer: Player? = null,
         var index: Int? = null
 ){
 

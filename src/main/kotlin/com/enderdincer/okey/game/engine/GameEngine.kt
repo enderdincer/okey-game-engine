@@ -10,5 +10,4 @@ interface GameEngine {
     fun createGame(gameId: String): GameState
 
     fun getNextGameState(prevGameState: GameState, gameEvent: GameEvent): GameState
-
 }
